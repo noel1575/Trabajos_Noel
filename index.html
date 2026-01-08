@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huella Colectiva - Taller Docente</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>📚</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -1315,7 +1316,7 @@
 
                         <div class="form-group">
                             <label for="participantNames">Nombres de los participantes</label>
-                            <textarea id="participantNames" placeholder="Escribe un nombre por línea. Ejemplo:&#10;María García&#10;Juan Pérez&#10;Ana López&#10;Carlos Rodríguez" oninput="updateParticipantCount()"></textarea>
+                            <textarea id="participantNames" placeholder="Escribe un nombre por línea. Ejemplo:&#10;María García&#10;Juan Pérez&#10;Ana López&#10;Carlos Rodríguez" oninput="updateParticipantCount(event)"></textarea>
                             <p class="help-text" id="participantCount">Escribe un nombre en cada línea. <strong>Total: 0 participantes</strong></p>
                         </div>
 
@@ -1654,7 +1655,10 @@
         }
 
         // Update participant count
-        function updateParticipantCount() {
+        function updateParticipantCount(event) {
+            if (event) {
+                event.stopPropagation();
+            }
             const textarea = document.getElementById('participantNames');
             const names = textarea.value.trim().split('\n').filter(name => name.trim() !== '');
             const countElement = document.getElementById('participantCount');
