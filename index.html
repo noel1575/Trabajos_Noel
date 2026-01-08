@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huella Colectiva - Taller Docente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terracota: #A0522D;
+            --terracota-oscuro: #6B4423;
+            --verde-salvia: #4A5F4F;
+            --verde-oliva: #6B8E6B;
+            --borgona: #6B2C3F;
+            --borgona-claro: #8B3E56;
+            --beige: #E8DCC4;
+            --marfil: #F5F1E8;
+            --gris-texto: #3C3C3C;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, #F5F1E8 0%, #E8DCC4 100%);
+            color: var(--gris-texto);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--borgona) 0%, var(--terracota-oscuro) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(48px, 9vw, 90px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--beige);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .hero h2 {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 400;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            display: block;
+            color: var(--beige);
+        }
+
+        .stat-label {
+            font-size: 15px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 70px 20px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(36px, 5vw, 52px);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--borgona);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: var(--terracota);
+            margin-bottom: 50px;
+            font-weight: 600;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            margin-bottom: 25px;
+            animation: slideIn 0.7s ease-out backwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.15s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.25s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.35s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px 30px;
+            border-left: 5px solid var(--verde-oliva);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+            border-left-color: var(--borgona);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-title {
+            font-size: 19px;
+            font-weight: 600;
+            flex: 1;
+            color: var(--gris-texto);
+        }
+
+        .timeline-time {
+            background: var(--verde-oliva);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* Activity Cards */
+        .activity-section {
+            margin: 70px 0;
+            padding: 0 20px;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 16px;
+            padding: 45px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--terracota);
+            transition: all 0.3s ease;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .activity-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .activity-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--beige);
+            padding-bottom: 20px;
+        }
+
+        .activity-number {
+            font-family: 'Crimson Text', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--terracota);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .activity-title {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(26px, 4vw, 36px);
+            font-weight: 700;
+            margin: 10px 0 15px;
+            color: var(--borgona);
+            line-height: 1.3;
+        }
+
+        .activity-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .activity-tag {
+            background: var(--marfil);
+            color: var(--gris-texto);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid var(--beige);
+        }
+
+        .activity-content {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--gris-texto);
+        }
+
+        .activity-content h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 30px 0 18px;
+            color: var(--verde-salvia);
+        }
+
+        .activity-content p {
+            margin-bottom: 15px;
+        }
+
+        .activity-content strong {
+            color: var(--borgona);
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #F5ECD7 0%, #E8DCC4 100%);
+            border-left: 5px solid var(--terracota);
+            padding: 25px 30px;
+            margin: 25px 0;
+            border-radius: 8px;
+            font-size: 19px;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--terracota-oscuro);
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+        }
+
+        .steps-list li {
+            background: var(--marfil);
+            padding: 18px 25px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border-left: 4px solid var(--verde-oliva);
+            font-size: 17px;
+            transition: all 0.3s ease;
+        }
+
+        .steps-list li:hover {
+            background: var(--beige);
+            transform: translateX(8px);
+            border-left-color: var(--borgona);
+        }
+
+        .steps-list li strong {
+            color: var(--verde-salvia);
+            margin-right: 10px;
+            font-weight: 700;
+        }
+
+        /* Reading Section */
+        .reading-section {
+            background: white;
+            border-radius: 16px;
+            padding: 45px;
+            margin: 35px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--beige);
+        }
+
+        .reading-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--borgona);
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--beige);
+        }
+
+        .reading-content {
+            font-size: 17px;
+            line-height: 1.9;
+            text-align: justify;
+            color: var(--gris-texto);
+        }
+
+        .reading-content p {
+            margin-bottom: 18px;
+        }
+
+        /* Kahoot Section */
+        .kahoot-section {
+            background: linear-gradient(135deg, var(--verde-salvia) 0%, var(--verde-oliva) 100%);
+            border-radius: 20px;
+            padding: 55px;
+            text-align: center;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(74, 95, 79, 0.3);
+            color: white;
+        }
+
+        .kahoot-section::before {
+            content: '📚';
+            position: absolute;
+            font-size: 180px;
+            top: -40px;
+            right: -40px;
+            opacity: 0.1;
+        }
+
+        .kahoot-title {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .kahoot-subtitle {
+            font-size: 19px;
+            margin-bottom: 35px;
+            opacity: 0.95;
+        }
+
+        .kahoot-button {
+            display: inline-block;
+            background: var(--terracota);
+            color: white;
+            padding: 16px 42px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(160, 82, 45, 0.4);
+        }
+
+        .kahoot-button:hover {
+            background: var(--terracota-oscuro);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(160, 82, 45, 0.5);
+        }
+
+        /* Elements Grid */
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 35px;
+        }
+
+        .element-box {
+            background: var(--marfil);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid var(--beige);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .element-box:hover {
+            background: white;
+            transform: translateY(-6px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--verde-oliva);
+        }
+
+        .element-icon {
+            font-size: 38px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .element-text {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--gris-texto);
+        }
+
+        /* Questions */
+        .questions-container {
+            display: grid;
+            gap: 18px;
+            margin-top: 35px;
+        }
+
+        .question-card {
+            background: var(--marfil);
+            border-radius: 12px;
+            padding: 28px;
+            border-left: 5px solid var(--terracota);
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            background: white;
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-number {
+            color: var(--terracota);
+            font-size: 26px;
+            font-weight: 700;
+            margin-right: 15px;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.6;
+            color: var(--gris-texto);
+        }
+
+        /* Collapsible sections */
+        .collapsible-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--verde-oliva);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .collapsible-section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .collapsible-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapsible-title {
+            color: var(--verde-salvia);
+            font-size: 18px;
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+
+        .collapsible-icon {
+            font-size: 24px;
+            color: var(--verde-oliva);
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsible-content.open {
+            max-height: 1000px;
+            margin-top: 15px;
+        }
+
+        .collapsible-content p {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .collapsible-content ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, var(--borgona) 0%, var(--borgona-claro) 100%);
+            border-radius: 20px;
+            padding: 55px;
+            text-align: center;
+            margin: 70px 0;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(107, 44, 63, 0.3);
+            color: white;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-family: 'Crimson Text', serif;
+            font-size: 150px;
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            opacity: 0.15;
+        }
+
+        .quote-text {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(24px, 3.5vw, 34px);
+            font-weight: 600;
+            line-height: 1.6;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .activity-card {
+                padding: 30px 25px;
+            }
+
+            .kahoot-section {
+                padding: 40px 25px;
+            }
+
+            .quote-box {
+                padding: 40px 25px;
+            }
+
+            .reading-section {
+                padding: 30px 25px;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 36px;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-8px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                HUELLA
+                <span>COLECTIVA</span>
+            </h1>
+            <h2>Fortaleciendo nuestra comunidad de aprendizaje docente</h2>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">2h</span>
+                    <span class="stat-label">Duración</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">7</span>
+                    <span class="stat-label">Actividades</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">10</span>
+                    <span class="stat-label">Participantes</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Timeline Section -->
+    <div class="container">
+        <h2 class="section-title">Agenda del Taller</h2>
+        <p class="section-subtitle">Duración total: 1 hora 50 minutos</p>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Bienvenida e introducción</div>
+                        <div class="timeline-time">10 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-title">De lo individual a lo colectivo</div>
+                        <div class="timeline-time">15 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Lectura dialogada + Kahoot</div>
+                        <div class="timeline-time">20 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Construcción de la Huella Colectiva</div>
+                        <div class="timeline-time">30 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Reflexión guiada en equipos</div>
+                        <div class="timeline-time">20 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Acuerdos y cierre reflexivo</div>
+                        <div class="timeline-time">10 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Evaluación del taller</div>
+                        <div class="timeline-time">5 min</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity 1 -->
+    <div class="activity-section">
+        <div class="activity-card">
+            <div class="activity-header">
+                <div>
+                    <div class="activity-number">Actividad 1</div>
+                    <h3 class="activity-title">De lo individual a lo colectivo</h3>
+                    <div class="activity-meta">
+                        <span class="activity-tag">⏱️ 15 minutos</span>
+                        <span class="activity-tag">📝 Individual → Plenaria</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-content">
+                <div class="highlight-box">
+                    <strong>Pregunta clave:</strong> "¿Con quién aprendo más en la escuela y por qué?"
+                </div>
+
+                <h3>¿Qué haremos?</h3>
+                <ul class="steps-list">
+                    <li><strong>Paso 1:</strong> Reflexión individual sobre la pregunta (5 minutos)</li>
+                    <li><strong>Paso 2:</strong> Escritura de respuesta en hoja o post-it</li>
+                    <li><strong>Paso 3:</strong> Compartir ideas clave en plenaria (10 minutos)</li>
+                    <li><strong>Paso 4:</strong> Identificar patrones sobre el aprendizaje entre pares</li>
+                </ul>
+
+                <p><strong>Objetivo:</strong> Activar experiencias previas y romper el hielo conectando con la importancia del aprendizaje colaborativo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity 2: Lectura dialogada -->
+    <div class="activity-section">
+        <div class="activity-card">
+            <div class="activity-header">
+                <div>
+                    <div class="activity-number">Actividad 2</div>
+                    <h3 class="activity-title">Lectura dialogada: Comunidades de Aprendizaje</h3>
+                    <div class="activity-meta">
+                        <span class="activity-tag">⏱️ 20 minutos</span>
+                        <span class="activity-tag">👥 Plenaria guiada</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-content">
+                <h3>¿Qué haremos?</h3>
+                <ul class="steps-list">
+                    <li><strong>Paso 1:</strong> Lectura colectiva del texto "De las comunidades de aprendizaje"</li>
+                    <li><strong>Paso 2:</strong> Pausas reflexivas para dialogar sobre ideas principales</li>
+                    <li><strong>Paso 3:</strong> Identificar qué prácticas ya vivimos como colectivo</li>
+                    <li><strong>Paso 4:</strong> Reconocer qué aspectos podemos fortalecer</li>
+                </ul>
+
+                <p><strong>Objetivo:</strong> Construir una comprensión compartida sobre qué significa ser una comunidad de aprendizaje y reflexionar sobre nuestro nivel actual.</p>
+
+                <div class="reading-section">
+                    <h4 class="reading-title">📖 De las comunidades de aprendizaje</h4>
+                    <div class="reading-content">
+                        <p>Durante mucho tiempo, la mayoría de las maestras y los maestros han trabajado de manera individual antes, durante y después de las clases. Sin embargo, esta forma de trabajo ha mostrado sus límites, especialmente cuando se busca mejorar la práctica docente y responder a los retos reales del aula.</p>
+
+                        <p>Avanzar hacia comunidades de aprendizaje implica reconocer la importancia del intercambio de saberes profesionales, el trabajo colaborativo y la construcción de un ambiente de confianza, respeto y apertura en cada escuela.</p>
+
+                        <p>Una comunidad de aprendizaje docente está conformada por maestras y maestros de un mismo centro de trabajo que se reúnen de forma periódica para dialogar, de manera horizontal, sobre las situaciones, retos y problemáticas vinculadas con su práctica pedagógica en el aula, la escuela y la comunidad.</p>
+
+                        <p>Las comunidades de aprendizaje no se conforman únicamente por asistir a reuniones o formar parte de un colectivo. Su fortalecimiento y consolidación dependen de las acciones que se emprenden y de las finalidades que las convocan.</p>
+
+                        <p>Las comunidades de aprendizaje se sostienen a través de la interacción continua, la corresponsabilidad, el compromiso y la participación activa de todos sus integrantes, reconociendo el valor de la diversidad de experiencias, saberes y perspectivas.</p>
+
+                        <p>Aprender con y de otros rompe con la lógica individualista y permite construir conocimiento pedagógico colectivo, el cual tiene un impacto directo en el aprendizaje y el bienestar de las y los estudiantes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kahoot Section -->
+    <div class="container">
+        <div class="kahoot-section">
+            <h2 class="kahoot-title">Momento Kahoot</h2>
+            <p class="kahoot-subtitle">Reforcemos los conceptos aprendidos de forma interactiva</p>
+            <a href="https://create.kahoot.it/details/2866e465-16bf-4b8c-a573-423597b9075c" target="_blank" class="kahoot-button">
+                🎯 Iniciar Kahoot
+            </a>
+        </div>
+    </div>
+
+    <!-- Activity 3: Huella Colectiva -->
+    <div class="activity-section">
+        <div class="activity-card">
+            <div class="activity-header">
+                <div>
+                    <div class="activity-number">Actividad 3 - Central</div>
+                    <h3 class="activity-title">Construcción de la Huella Colectiva</h3>
+                    <div class="activity-meta">
+                        <span class="activity-tag">⏱️ 30 minutos</span>
+                        <span class="activity-tag">🤝 Trabajo colaborativo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-content">
+                <h3>¿Qué haremos?</h3>
+                <ul class="steps-list">
+                    <li><strong>Paso 1:</strong> Organización en plenaria frente al pizarrón o papel bond</li>
+                    <li><strong>Paso 2:</strong> Diseño colectivo de un trayecto visual (camino, mapa o línea de tiempo)</li>
+                    <li><strong>Paso 3:</strong> Integración de elementos clave de nuestro recorrido como comunidad</li>
+                    <li><strong>Paso 4:</strong> Decoración y complemento del mapa con símbolos, colores e imágenes</li>
+                    <li><strong>Paso 5:</strong> Presentación y explicación de la huella construida</li>
+                </ul>
+
+                <p><strong>Objetivo:</strong> Visualizar de forma creativa y colaborativa nuestro camino como comunidad de aprendizaje, reconociendo logros, retos y aprendizajes compartidos.</p>
+
+                <h3>Elementos a representar en la huella:</h3>
+                <div class="elements-grid">
+                    <div class="element-box">
+                        <span class="element-icon">👥</span>
+                        <p class="element-text">Participación de cada miembro del colectivo</p>
+                    </div>
+                    <div class="element-box">
+                        <span class="element-icon">🎭</span>
+                        <p class="element-text">Roles que hemos desempeñado</p>
+                    </div>
+                    <div class="element-box">
+                        <span class="element-icon">💬</span>
+                        <p class="element-text">Formas en que interactuamos y dialogamos</p>
+                    </div>
+                    <div class="element-box">
+                        <span class="element-icon">📚</span>
+                        <p class="element-text">Actividades pedagógicas realizadas</p>
+                    </div>
+                    <div class="element-box">
+                        <span class="element-icon">⚡</span>
+                        <p class="element-text">Conflictos enfrentados y cómo los resolvimos</p>
+                    </div>
+                    <div class="element-box">
+                        <span class="element-icon">💡</span>
+                        <p class="element-text">Conocimientos construidos juntos</p>
+                    </div>
+                    <div class="element-box">
+                        <span class="element-icon">📖</span>
+                        <p class="element-text">Fuentes de aprendizaje utilizadas</p>
+                    </div>
+                    <div class="element-box">
+                        <span class="element-icon">✅</span>
+                        <p class="element-text">Seguimiento a compromisos y acuerdos</p>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #FFF8E7 0%, #F5ECD7 100%); padding: 35px; border-radius: 16px; margin-top: 40px; border: 2px solid var(--beige); max-width: 1000px; margin-left: auto; margin-right: auto;">
+                    <h3 style="color: var(--terracota); margin-bottom: 25px; text-align: center;">💡 Ejemplos concretos de cómo construir la huella:</h3>
+                    
+                    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--verde-oliva);">
+                        <h4 style="color: var(--verde-salvia); font-size: 20px; margin-bottom: 15px; text-align: center;">📋 Ejemplo completo: Trayecto docente</h4>
+                        
+                        <div style="background: #F8F9FA; padding: 25px; border-radius: 8px; margin: 20px 0;">
+                            <h5 style="color: var(--borgona); font-size: 18px; margin-bottom: 15px; text-align: center; font-weight: 700;">
+                                "Nuestro trayecto como comunidad de aprendizaje<br>(Agosto 2025 – Enero 2026)"
+                            </h5>
+                            
+                            <div style="display: grid; gap: 15px; margin-top: 20px;">
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B8E6B;">
+                                    <strong style="color: var(--verde-salvia);">👥 1. Participación:</strong> 80% participa en plenaria; 20% suele guardar silencio (acordamos dar turnos).
+                                </div>
+                                
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #A0522D;">
+                                    <strong style="color: var(--terracota);">🎭 2. Roles:</strong> Moderación rotativa; relatoría por equipos; control de tiempo asignado.
+                                </div>
+                                
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B8E6B;">
+                                    <strong style="color: var(--verde-salvia);">💬 3. Interacción:</strong> Más diálogo horizontal; disminuyó el "solo informar" y aumentó el intercambio de estrategias.
+                                </div>
+                                
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #A0522D;">
+                                    <strong style="color: var(--terracota);">📚 4. Actividades clave:</strong> Análisis de PDA, diseño de situaciones didácticas, acuerdos de evaluación formativa.
+                                </div>
+                                
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B2C3F;">
+                                    <strong style="color: var(--borgona);">⚡ 5. Conflictos y soluciones:</strong> Desacuerdos por tareas administrativas → calendarizamos y repartimos responsables.
+                                </div>
+                                
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B8E6B;">
+                                    <strong style="color: var(--verde-salvia);">💡 6. Conocimiento construido:</strong> Criterios comunes para retroalimentación y rúbrica institucional básica.
+                                </div>
+                                
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #A0522D;">
+                                    <strong style="color: var(--terracota);">📖 7. Fuentes de aprendizaje:</strong> Orientaciones CTE, experiencia de aula, lecturas breves, videos SEP.
+                                </div>
+                                
+                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B2C3F;">
+                                    <strong style="color: var(--borgona);">✅ 8. Seguimiento:</strong> Acuerdos en bitácora + revisión quincenal en reuniones cortas (15 min).
+                                </div>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 8px; margin-top: 20px; border: 2px solid var(--verde-oliva);">
+                                <p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--gris-texto); font-style: italic; text-align: center;">
+                                    <strong style="color: var(--verde-salvia);">🎯 Conclusión del trayecto:</strong><br>
+                                    "Pasamos de reunirnos a trabajar con propósito compartido; falta sostener seguimiento y evidencias."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--terracota);">
+                        <h4 style="color: var(--terracota-oscuro); font-size: 20px; margin-bottom: 15px; text-align: center;">🎨 Formato visual alternativo</h4>
+                        
+                        <div style="background: #F5F5F5; padding: 25px; border-radius: 8px; margin: 20px 0; text-align: center;">
+                            <div style="display: inline-block; text-align: center;">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3Crect fill='%23E8DCC4' width='800' height='400'/%3E%3Ctext x='400' y='40' text-anchor='middle' font-size='20' font-weight='bold' fill='%236B2C3F'%3ETRAYECTO DOCENTE:%3C/text%3E%3Ctext x='400' y='65' text-anchor='middle' font-size='16' fill='%23A0522D'%3EResumen de la Narrativa del Aprendizaje Colectivo%3C/text%3E%3Crect x='40' y='90' width='170' height='120' rx='10' fill='%235B9BD5'/%3E%3Ctext x='125' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E1. Participación%3C/text%3E%3Crect x='230' y='90' width='170' height='120' rx='10' fill='%2370AD47'/%3E%3Ctext x='315' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E2. Roles%3C/text%3E%3Crect x='420' y='90' width='170' height='120' rx='10' fill='%23FFC000'/%3E%3Ctext x='505' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E3. Interacción%3C/text%3E%3Crect x='610' y='90' width='170' height='120' rx='10' fill='%23FF9933'/%3E%3Ctext x='695' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E4. Actividades%3C/text%3E%3Crect x='40' y='230' width='170' height='120' rx='10' fill='%23E74C3C'/%3E%3Ctext x='125' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E5. Conflictos%3C/text%3E%3Crect x='230' y='230' width='170' height='120' rx='10' fill='%239B59B6'/%3E%3Ctext x='315' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E6. Conocimiento%3C/text%3E%3Crect x='420' y='230' width='170' height='120' rx='10' fill='%23EC7C9B'/%3E%3Ctext x='505' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E7. Fuentes%3C/text%3E%3Crect x='610' y='230' width='170' height='120' rx='10' fill='%2326A69A'/%3E%3Ctext x='695' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E8. Seguimiento%3C/text%3E%3C/svg%3E" alt="Trayecto Docente Visual" style="max-width: 100%; height: auto; border-radius: 8px;">
+                            </div>
+                        </div>
+                        
+                        <p style="margin: 15px 0 10px 0; font-weight: 600; text-align: center;">Pueden dibujar 8 recuadros de colores con estos elementos:</p>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>Cada recuadro representa un aspecto de la comunidad (participación, roles, etc.)</li>
+                            <li>Usar colores diferentes para cada recuadro (azul, verde, amarillo, naranja, rojo, morado, rosa, turquesa)</li>
+                            <li>Incluir íconos o dibujos simples dentro de cada recuadro</li>
+                            <li>Agregar texto breve con los logros o descripciones</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 12px; border-left: 4px solid var(--borgona);">
+                        <h4 style="color: var(--borgona); font-size: 20px; margin-bottom: 15px; text-align: center;">⏰ Línea de tiempo con hitos</h4>
+                        
+                        <div style="background: #F5F5F5; padding: 25px; border-radius: 8px; margin: 20px 0; text-align: center;">
+                            <div style="display: inline-block; text-align: left;">
+                                <pre style="font-family: monospace; font-size: 13px; line-height: 1.8; margin: 0;">
+    AGO 2025 ──●── OCT 2025 ──●── DIC 2025 ──●── ENE 2026
+               │            │            │            │
+             🌱 CTE      📖 Lectura   🤝 Clase    ✅ Acuerdos
+           Bienvenida   Dialogada    Abierta    Finales
+         Roles claros   + Kahoot    Colectiva  Seguimiento
+         80% participa  Compartir   Reflexión  Bitácora
+                        criterios   grupal     activa
+                </pre>
+                            </div>
+                        </div>
+                        
+                        <p style="margin: 15px 0 10px 0; font-weight: 600;">Cómo construir esta línea de tiempo:</p>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>Dibujar una línea horizontal en papel bond o pizarrón</li>
+                            <li>Marcar los meses o fechas clave del ciclo escolar</li>
+                            <li>En cada punto colocar un círculo o símbolo destacado</li>
+                            <li>Debajo de cada punto escribir 2-3 actividades o logros específicos</li>
+                            <li>Usar emojis, dibujos o post-its de colores para decorar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity 4: Reflexión -->
+    <div class="activity-section">
+        <div class="activity-card">
+            <div class="activity-header">
+                <div>
+                    <div class="activity-number">Actividad 4</div>
+                    <h3 class="activity-title">Reflexión guiada en equipos</h3>
+                    <div class="activity-meta">
+                        <span class="activity-tag">⏱️ 20 minutos</span>
+                        <span class="activity-tag">👥 Equipos de 3-4 docentes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-content">
+                <h3>¿Qué haremos?</h3>
+                <ul class="steps-list">
+                    <li><strong>Paso 1:</strong> Formación de equipos de 3 a 4 docentes</li>
+                    <li><strong>Paso 2:</strong> Diálogo sobre las tres preguntas guía (15 minutos)</li>
+                    <li><strong>Paso 3:</strong> Registro escrito de las respuestas consensuadas</li>
+                    <li><strong>Paso 4:</strong> Cada equipo comparte una idea clave en plenaria (5 minutos)</li>
+                </ul>
+
+                <p><strong>Objetivo:</strong> Identificar logros alcanzados, reconocer fortalezas del colectivo y visibilizar áreas de oportunidad para seguir creciendo como comunidad de aprendizaje.</p>
+
+                <h3>Preguntas guía para la reflexión:</h3>
+                <div class="questions-container">
+                    <div class="question-card">
+                        <span class="question-number">1</span>
+                        <span class="question-text">¿Qué aprendizajes hemos consolidado como colectivo docente?</span>
+                    </div>
+                    <div class="question-card">
+                        <span class="question-number">2</span>
+                        <span class="question-text">¿Qué experiencias nos han fortalecido como comunidad de aprendizaje?</span>
+                    </div>
+                    <div class="question-card">
+                        <span class="question-number">3</span>
+                        <span class="question-text">¿Qué retos siguen presentes para consolidarnos plenamente como comunidad de aprendizaje?</span>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #FFF8E7 0%, #F5ECD7 100%); padding: 35px; border-radius: 16px; margin-top: 40px; border: 2px solid var(--beige); max-width: 1000px; margin-left: auto; margin-right: auto;">
+                    <h3 style="color: var(--terracota); margin-bottom: 25px; text-align: center;">💡 Ejemplos de respuestas para orientar la reflexión:</h3>
+                    <p style="text-align: center; color: #666; margin-bottom: 25px; font-style: italic;">Haz clic en cada pregunta para ver ejemplos de respuestas</p>
+                    
+                    <div class="collapsible-section" onclick="toggleCollapsible(this)" style="border-left-color: var(--verde-oliva);">
+                        <div class="collapsible-header">
+                            <h4 class="collapsible-title" style="color: var(--verde-salvia);">Pregunta 1: Aprendizajes consolidados</h4>
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>Ejemplos de respuestas:</p>
+                            <ul>
+                                <li>"Hemos aprendido a diseñar situaciones didácticas centradas en el estudiante"</li>
+                                <li>"Ahora compartimos estrategias de evaluación formativa que nos funcionan"</li>
+                                <li>"Aprendimos a dar retroalimentación constructiva entre colegas"</li>
+                                <li>"Consolidamos el uso de organizadores gráficos en todas las materias"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section" onclick="toggleCollapsible(this)" style="border-left-color: var(--terracota);">
+                        <div class="collapsible-header">
+                            <h4 class="collapsible-title" style="color: var(--terracota-oscuro);">Pregunta 2: Experiencias fortalecedoras</h4>
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>Ejemplos de respuestas:</p>
+                            <ul>
+                                <li>"La observación entre pares nos permitió aprender técnicas nuevas"</li>
+                                <li>"Las sesiones de análisis de casos reales nos unieron como equipo"</li>
+                                <li>"Superar juntos el reto de la clase abierta nos dio confianza"</li>
+                                <li>"Los círculos de lectura profesional fortalecieron nuestro diálogo pedagógico"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section" onclick="toggleCollapsible(this)" style="border-left-color: var(--borgona);">
+                        <div class="collapsible-header">
+                            <h4 class="collapsible-title" style="color: var(--borgona);">Pregunta 3: Retos pendientes</h4>
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>Ejemplos de respuestas:</p>
+                            <ul>
+                                <li>"Necesitamos mayor tiempo para el diálogo pedagógico profundo"</li>
+                                <li>"Falta lograr la participación equilibrada de todos los docentes"</li>
+                                <li>"Debemos dar mejor seguimiento a los acuerdos que tomamos"</li>
+                                <li>"Hace falta documentar y sistematizar nuestras mejores prácticas"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="container">
+        <div class="quote-box">
+            <p class="quote-text">
+                Una comunidad de aprendizaje no se define por reunirse, sino por aprender y transformarse juntos
+            </p>
+        </div>
+    </div>
+
+    <!-- Activity 5: Acuerdos -->
+    <div class="activity-section">
+        <div class="activity-card">
+            <div class="activity-header">
+                <div>
+                    <div class="activity-number">Actividad 5</div>
+                    <h3 class="activity-title">Acuerdos y cierre reflexivo</h3>
+                    <div class="activity-meta">
+                        <span class="activity-tag">⏱️ 10 minutos</span>
+                        <span class="activity-tag">👥 Plenaria</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-content">
+                <h3>¿Qué haremos?</h3>
+                <ul class="steps-list">
+                    <li><strong>Paso 1:</strong> Propuesta colectiva de 2 o 3 acuerdos realistas</li>
+                    <li><strong>Paso 2:</strong> Discusión y ajuste de los acuerdos propuestos</li>
+                    <li><strong>Paso 3:</strong> Consenso y formalización de compromisos</li>
+                    <li><strong>Paso 4:</strong> Definición de estrategias para dar seguimiento</li>
+                </ul>
+
+                <p><strong>Objetivo:</strong> Establecer compromisos concretos y alcanzables que fortalezcan nuestro trabajo colaborativo más allá del taller.</p>
+
+                <h3>Los acuerdos deben ayudarnos a:</h3>
+                <div style="background: var(--marfil); padding: 30px; border-radius: 12px; margin-top: 25px; border: 2px solid var(--beige);">
+                    <p style="font-size: 18px; margin-bottom: 15px; color: var(--gris-texto);">✓ Priorizar lo pedagógico en nuestras reuniones</p>
+                    <p style="font-size: 18px; margin-bottom: 15px; color: var(--gris-texto);">✓ Fortalecer la participación equitativa de todos</p>
+                    <p style="font-size: 18px; margin-bottom: 0; color: var(--gris-texto);">✓ Dar seguimiento efectivo a los compromisos asumidos</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #FFF8E7 0%, #F5ECD7 100%); padding: 35px; border-radius: 16px; margin-top: 40px; border: 2px solid var(--beige); max-width: 1000px; margin-left: auto; margin-right: auto;">
+                    <h3 style="color: var(--terracota); margin-bottom: 25px; text-align: center;">💡 Ejemplos de acuerdos concretos y alcanzables:</h3>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--verde-oliva);">
+                        <h4 style="color: var(--verde-salvia); font-size: 18px; margin-bottom: 12px;">📌 Acuerdos sobre reuniones</h4>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>"Dedicar los primeros 30 minutos de cada CTE a compartir una estrategia didáctica exitosa"</li>
+                            <li>"Iniciar cada reunión con una pregunta pedagógica que todos respondan brevemente"</li>
+                            <li>"Establecer roles rotativos (moderador, secretario, timekeeper) en cada sesión"</li>
+                            <li>"Limitar temas administrativos a 15 minutos para priorizar lo pedagógico"</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--terracota);">
+                        <h4 style="color: var(--terracota-oscuro); font-size: 18px; margin-bottom: 12px;">🤝 Acuerdos sobre participación</h4>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>"Usar la técnica de 'palabra viajera' para que todos compartan al menos una vez"</li>
+                            <li>"Implementar trabajos en parejas rotativas cada mes para fortalecer vínculos"</li>
+                            <li>"Crear un 'muro de aprendizajes' donde todos colguen una reflexión mensual"</li>
+                            <li>"Realizar observaciones entre pares al menos una vez por bimestre"</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; padding: 25px; border-radius: 12px; border-left: 4px solid var(--borgona);">
+                        <h4 style="color: var(--borgona); font-size: 18px; margin-bottom: 12px;">✅ Acuerdos sobre seguimiento</h4>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>"Destinar 10 minutos al inicio de cada reunión para revisar acuerdos previos"</li>
+                            <li>"Crear una bitácora colectiva digital donde documentar avances"</li>
+                            <li>"Designar un 'guardián de acuerdos' rotativo que recuerde compromisos"</li>
+                            <li>"Compartir evidencias fotográficas de las prácticas acordadas en grupo de WhatsApp"</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #E8F5E9; padding: 20px; border-radius: 12px; margin-top: 25px; border: 2px solid var(--verde-oliva);">
+                        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--gris-texto);"><strong style="color: var(--verde-salvia);">💭 Consejo:</strong> Los mejores acuerdos son específicos, medibles y tienen un responsable claro. Eviten acuerdos vagos como "mejorar la comunicación" y opten por acciones concretas como "crear un grupo de WhatsApp para compartir recursos cada viernes".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Evaluation -->
+    <div class="activity-section">
+        <div class="activity-card">
+            <div class="activity-header">
+                <div>
+                    <div class="activity-number">Actividad 6</div>
+                    <h3 class="activity-title">Evaluación del taller</h3>
+                    <div class="activity-meta">
+                        <span class="activity-tag">⏱️ 5 minutos</span>
+                        <span class="activity-tag">📝 Individual</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-content">
+                <h3>¿Qué haremos?</h3>
+                <ul class="steps-list">
+                    <li><strong>Paso 1:</strong> Responder individualmente dos preguntas breves</li>
+                    <li><strong>Paso 2:</strong> Escribir respuestas en post-it o formato proporcionado</li>
+                    <li><strong>Paso 3:</strong> (Opcional) Compartir algunas respuestas en voz alta</li>
+                </ul>
+
+                <p><strong>Objetivo:</strong> Recoger retroalimentación sobre la utilidad y aplicabilidad del taller.</p>
+
+                <h3>Preguntas de evaluación:</h3>
+                <div class="questions-container">
+                    <div class="question-card">
+                        <span class="question-number">1</span>
+                        <span class="question-text">¿Qué es lo más valioso que me llevo de este taller?</span>
+                    </div>
+                    <div class="question-card">
+                        <span class="question-number">2</span>
+                        <span class="question-text">¿Qué acción concreta puedo aplicar en mi colectivo docente?</span>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #FFF8E7 0%, #F5ECD7 100%); padding: 35px; border-radius: 16px; margin-top: 40px; border: 2px solid var(--beige); max-width: 1000px; margin-left: auto; margin-right: auto;">
+                    <h3 style="color: var(--terracota); margin-bottom: 25px; text-align: center;">💡 Ejemplos de respuestas para inspirar la evaluación:</h3>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--verde-oliva);">
+                        <h4 style="color: var(--verde-salvia); font-size: 18px; margin-bottom: 12px;">Pregunta 1: Lo más valioso del taller</h4>
+                        <p style="font-style: italic; color: #666; margin-bottom: 12px;">Ejemplos de lo que podrían llevarse:</p>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>"La claridad de que una comunidad no es solo reunirse, sino transformarse juntos"</li>
+                            <li>"Reconocer que el aprendizaje colectivo impacta directamente a nuestros estudiantes"</li>
+                            <li>"Las ideas concretas de cómo construir nuestra huella como colectivo"</li>
+                            <li>"La importancia de la diversidad de experiencias y saberes en el grupo"</li>
+                            <li>"El valor de documentar y dar seguimiento a nuestros compromisos"</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--terracota);">
+                        <h4 style="color: var(--terracota-oscuro); font-size: 18px; margin-bottom: 12px;">Pregunta 2: Acciones concretas a aplicar</h4>
+                        <p style="font-style: italic; color: #666; margin-bottom: 12px;">Ejemplos de acciones inmediatas:</p>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li>"Proponer en la próxima reunión dedicar tiempo específico a compartir estrategias didácticas"</li>
+                            <li>"Iniciar un grupo de WhatsApp para compartir recursos y aprendizajes entre sesiones"</li>
+                            <li>"Invitar a un colega a observar mi clase y yo observar la suya"</li>
+                            <li>"Crear una bitácora personal de aprendizajes del colectivo para compartir mensualmente"</li>
+                            <li>"Proponer roles rotativos en las reuniones para fomentar participación equitativa"</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #E8F5E9; padding: 25px; border-radius: 12px; border: 2px solid var(--verde-oliva);">
+                        <h4 style="color: var(--verde-salvia); font-size: 18px; margin-bottom: 12px;">📝 Formato sugerido para recoger respuestas:</h4>
+                        <p style="margin-bottom: 12px; line-height: 1.7;">Pueden usar:</p>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><strong>Post-its de colores:</strong> Un color para cada pregunta, pegados en el pizarrón</li>
+                            <li><strong>Tarjetas de cartulina:</strong> Decoradas y guardadas como recuerdo del taller</li>
+                            <li><strong>Formulario digital:</strong> Google Forms para sistematizar respuestas</li>
+                            <li><strong>Mural colaborativo:</strong> Padlet o Jamboard donde todos escriban digitalmente</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #FFF3E0; padding: 20px; border-radius: 12px; margin-top: 20px; border: 2px solid var(--naranja);">
+                        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--gris-texto);"><strong style="color: var(--terracota);">💭 Opcional:</strong> Si el tiempo lo permite, invitar a 3-4 voluntarios a compartir en voz alta sus respuestas. Esto enriquece el cierre y permite que todos se lleven más ideas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Message -->
+    <div class="container">
+        <div style="text-align: center; padding: 60px 20px; margin: 40px 0; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+            <h2 style="font-family: 'Crimson Text', serif; font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 20px; color: var(--borgona);">
+                Gracias por tu compromiso
+            </h2>
+            <p style="font-size: 20px; color: var(--gris-texto); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                Juntos construimos una comunidad de aprendizaje más fuerte y colaborativa
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Remove scroll indicator after scrolling
+        window.addEventListener('scroll', function() {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (indicator && window.scrollY > 100) {
+                indicator.style.opacity = '0';
+            } else if (indicator) {
+                indicator.style.opacity = '0.7';
+            }
+        });
+
+        // Add smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.activity-section, .kahoot-section, .quote-box').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+
+        // Toggle collapsible sections
+        function toggleCollapsible(element) {
+            const content = element.querySelector('.collapsible-content');
+            const icon = element.querySelector('.collapsible-icon');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('open');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
