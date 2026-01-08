@@ -569,6 +569,234 @@
             line-height: 1.8;
         }
 
+        /* Generador de equipos */
+        .team-generator-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 3px solid var(--verde-oliva);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .team-generator-section:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .team-generator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .team-generator-title {
+            color: var(--verde-salvia);
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .team-generator-icon {
+            font-size: 28px;
+            color: var(--verde-oliva);
+            transition: transform 0.3s ease;
+        }
+
+        .team-generator-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .team-generator-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .team-generator-content.open {
+            max-height: 3000px;
+            margin-top: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gris-texto);
+            font-size: 16px;
+        }
+
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--beige);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Source Sans Pro', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input[type="number"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--verde-oliva);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .help-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .btn {
+            background: var(--verde-oliva);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .btn:hover {
+            background: var(--verde-salvia);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 95, 79, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--terracota);
+        }
+
+        .btn-secondary:hover {
+            background: var(--terracota-oscuro);
+        }
+
+        .teams-result {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #F5ECD7 0%, #E8DCC4 100%);
+            border-radius: 12px;
+            border: 2px solid var(--beige);
+        }
+
+        .team-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--verde-oliva);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-card:nth-child(2n) {
+            border-left-color: var(--terracota);
+        }
+
+        .team-card:nth-child(3n) {
+            border-left-color: var(--borgona);
+        }
+
+        .team-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--borgona);
+            margin-bottom: 12px;
+        }
+
+        .team-members {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-members li {
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            background: var(--marfil);
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .warning-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .warning-modal.show {
+            display: flex;
+        }
+
+        .warning-content {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .warning-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--borgona);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .warning-message {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--gris-texto);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .warning-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .warning-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
         /* Quote Box */
         .quote-box {
             background: linear-gradient(135deg, var(--borgona) 0%, var(--borgona-claro) 100%);
@@ -905,98 +1133,140 @@
                     <h3 style="color: var(--terracota); margin-bottom: 25px; text-align: center;">💡 Ejemplos concretos de cómo construir la huella:</h3>
                     
                     <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--verde-oliva);">
-                        <h4 style="color: var(--verde-salvia); font-size: 20px; margin-bottom: 15px; text-align: center;">📋 Ejemplo completo: Trayecto docente</h4>
+                        <h4 style="color: var(--verde-salvia); font-size: 20px; margin-bottom: 15px; text-align: center;">📋 Ejemplo 1: Narrativa escrita del trayecto</h4>
                         
                         <div style="background: #F8F9FA; padding: 25px; border-radius: 8px; margin: 20px 0;">
                             <h5 style="color: var(--borgona); font-size: 18px; margin-bottom: 15px; text-align: center; font-weight: 700;">
-                                "Nuestro trayecto como comunidad de aprendizaje<br>(Agosto 2025 – Enero 2026)"
+                                "Recorrido de nuestra comunidad docente<br>(Agosto 2025 – Enero 2026)"
                             </h5>
                             
-                            <div style="display: grid; gap: 15px; margin-top: 20px;">
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B8E6B;">
-                                    <strong style="color: var(--verde-salvia);">👥 1. Participación:</strong> 80% participa en plenaria; 20% suele guardar silencio (acordamos dar turnos).
-                                </div>
+                            <div style="line-height: 1.9; color: var(--gris-texto);">
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--verde-salvia);">👥 Participación de cada integrante:</strong> La mayoría del equipo (aproximadamente 8 de cada 10 docentes) comparte activamente en las plenarias, mientras que un grupo menor tiende a observar más que hablar. Para equilibrar esto, acordamos implementar turnos de participación.</p>
                                 
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #A0522D;">
-                                    <strong style="color: var(--terracota);">🎭 2. Roles:</strong> Moderación rotativa; relatoría por equipos; control de tiempo asignado.
-                                </div>
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--terracota);">🎭 Roles definidos:</strong> Establecimos funciones claras: alguien modera cada sesión de forma rotativa, los equipos se turnan para tomar notas, y designamos a una persona para cuidar los tiempos.</p>
                                 
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B8E6B;">
-                                    <strong style="color: var(--verde-salvia);">💬 3. Interacción:</strong> Más diálogo horizontal; disminuyó el "solo informar" y aumentó el intercambio de estrategias.
-                                </div>
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--verde-salvia);">💬 Formas de comunicación:</strong> Avanzamos hacia conversaciones más equilibradas y democráticas. Las reuniones donde solo se transmitía información disminuyeron, y ahora intercambiamos más técnicas y estrategias didácticas entre colegas.</p>
                                 
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #A0522D;">
-                                    <strong style="color: var(--terracota);">📚 4. Actividades clave:</strong> Análisis de PDA, diseño de situaciones didácticas, acuerdos de evaluación formativa.
-                                </div>
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--terracota);">📚 Actividades principales:</strong> Revisamos el Programa de Desarrollo Aprendizaje, creamos planeaciones de situaciones didácticas y consensuamos criterios para la evaluación formativa.</p>
                                 
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B2C3F;">
-                                    <strong style="color: var(--borgona);">⚡ 5. Conflictos y soluciones:</strong> Desacuerdos por tareas administrativas → calendarizamos y repartimos responsables.
-                                </div>
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--borgona);">⚡ Conflictos enfrentados:</strong> Surgieron desacuerdos relacionados con las tareas administrativas que debíamos realizar. La solución fue organizar un calendario y distribuir las responsabilidades entre todos.</p>
                                 
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B8E6B;">
-                                    <strong style="color: var(--verde-salvia);">💡 6. Conocimiento construido:</strong> Criterios comunes para retroalimentación y rúbrica institucional básica.
-                                </div>
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--verde-salvia);">💡 Aprendizajes compartidos:</strong> Construimos juntos estándares comunes para dar retroalimentación a los estudiantes y diseñamos una rúbrica básica que toda la escuela puede usar.</p>
                                 
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #A0522D;">
-                                    <strong style="color: var(--terracota);">📖 7. Fuentes de aprendizaje:</strong> Orientaciones CTE, experiencia de aula, lecturas breves, videos SEP.
-                                </div>
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--terracota);">📖 Materiales consultados:</strong> Nos apoyamos en las Guías de los Consejos Técnicos Escolares, en nuestra propia experiencia diaria en el aula, en textos cortos de pedagogía y en materiales audiovisuales de la SEP.</p>
                                 
-                                <div style="background: white; padding: 18px; border-radius: 8px; border-left: 3px solid #6B2C3F;">
-                                    <strong style="color: var(--borgona);">✅ 8. Seguimiento:</strong> Acuerdos en bitácora + revisión quincenal en reuniones cortas (15 min).
+                                <p style="margin-bottom: 15px;"><strong style="color: var(--borgona);">✅ Monitoreo de compromisos:</strong> Registramos nuestros acuerdos en una libreta colectiva y dedicamos 15 minutos cada dos semanas para revisar avances en reuniones breves.</p>
+                                
+                                <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 8px; margin-top: 20px; border: 2px solid var(--verde-oliva);">
+                                    <p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--gris-texto); font-style: italic; text-align: center;">
+                                        <strong style="color: var(--verde-salvia);">🎯 Reflexión final:</strong><br>
+                                        "Evolucionamos de simplemente juntarnos a colaborar con objetivos claros y compartidos; aún nos falta fortalecer el seguimiento constante y documentar mejor nuestras evidencias."
+                                    </p>
                                 </div>
-                            </div>
-                            
-                            <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 8px; margin-top: 20px; border: 2px solid var(--verde-oliva);">
-                                <p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--gris-texto); font-style: italic; text-align: center;">
-                                    <strong style="color: var(--verde-salvia);">🎯 Conclusión del trayecto:</strong><br>
-                                    "Pasamos de reunirnos a trabajar con propósito compartido; falta sostener seguimiento y evidencias."
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--terracota);">
-                        <h4 style="color: var(--terracota-oscuro); font-size: 20px; margin-bottom: 15px; text-align: center;">🎨 Formato visual alternativo</h4>
-                        
-                        <div style="background: #F5F5F5; padding: 25px; border-radius: 8px; margin: 20px 0; text-align: center;">
-                            <div style="display: inline-block; text-align: center;">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3Crect fill='%23E8DCC4' width='800' height='400'/%3E%3Ctext x='400' y='40' text-anchor='middle' font-size='20' font-weight='bold' fill='%236B2C3F'%3ETRAYECTO DOCENTE:%3C/text%3E%3Ctext x='400' y='65' text-anchor='middle' font-size='16' fill='%23A0522D'%3EResumen de la Narrativa del Aprendizaje Colectivo%3C/text%3E%3Crect x='40' y='90' width='170' height='120' rx='10' fill='%235B9BD5'/%3E%3Ctext x='125' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E1. Participación%3C/text%3E%3Crect x='230' y='90' width='170' height='120' rx='10' fill='%2370AD47'/%3E%3Ctext x='315' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E2. Roles%3C/text%3E%3Crect x='420' y='90' width='170' height='120' rx='10' fill='%23FFC000'/%3E%3Ctext x='505' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E3. Interacción%3C/text%3E%3Crect x='610' y='90' width='170' height='120' rx='10' fill='%23FF9933'/%3E%3Ctext x='695' y='120' text-anchor='middle' font-size='14' font-weight='bold'%3E4. Actividades%3C/text%3E%3Crect x='40' y='230' width='170' height='120' rx='10' fill='%23E74C3C'/%3E%3Ctext x='125' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E5. Conflictos%3C/text%3E%3Crect x='230' y='230' width='170' height='120' rx='10' fill='%239B59B6'/%3E%3Ctext x='315' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E6. Conocimiento%3C/text%3E%3Crect x='420' y='230' width='170' height='120' rx='10' fill='%23EC7C9B'/%3E%3Ctext x='505' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E7. Fuentes%3C/text%3E%3Crect x='610' y='230' width='170' height='120' rx='10' fill='%2326A69A'/%3E%3Ctext x='695' y='260' text-anchor='middle' font-size='14' font-weight='bold'%3E8. Seguimiento%3C/text%3E%3C/svg%3E" alt="Trayecto Docente Visual" style="max-width: 100%; height: auto; border-radius: 8px;">
                             </div>
                         </div>
                         
-                        <p style="margin: 15px 0 10px 0; font-weight: 600; text-align: center;">Pueden dibujar 8 recuadros de colores con estos elementos:</p>
-                        <ul style="margin-left: 20px; line-height: 1.8;">
-                            <li>Cada recuadro representa un aspecto de la comunidad (participación, roles, etc.)</li>
-                            <li>Usar colores diferentes para cada recuadro (azul, verde, amarillo, naranja, rojo, morado, rosa, turquesa)</li>
-                            <li>Incluir íconos o dibujos simples dentro de cada recuadro</li>
-                            <li>Agregar texto breve con los logros o descripciones</li>
+                        <p style="margin: 15px 0 10px 0; font-weight: 600; color: var(--gris-texto);">💡 Cómo usar este formato:</p>
+                        <ul style="margin-left: 20px; line-height: 1.8; color: var(--gris-texto);">
+                            <li>Escribir este texto en un papel bond grande</li>
+                            <li>Cada elemento puede ir en un párrafo diferente con un color de marcador distinto</li>
+                            <li>Agregar dibujos o símbolos al margen de cada párrafo</li>
+                            <li>Decorar con marcos, flechas o ilustraciones sencillas</li>
                         </ul>
                     </div>
 
-                    <div style="background: white; padding: 30px; border-radius: 12px; border-left: 4px solid var(--borgona);">
-                        <h4 style="color: var(--borgona); font-size: 20px; margin-bottom: 15px; text-align: center;">⏰ Línea de tiempo con hitos</h4>
+                    <div style="background: white; padding: 30px; border-radius: 12px; border-left: 4px solid var(--terracota);">
+                        <h4 style="color: var(--terracota-oscuro); font-size: 20px; margin-bottom: 15px; text-align: center;">🎨 Ejemplo 2: Formato visual con recuadros</h4>
                         
-                        <div style="background: #F5F5F5; padding: 25px; border-radius: 8px; margin: 20px 0; text-align: center;">
-                            <div style="display: inline-block; text-align: left;">
-                                <pre style="font-family: monospace; font-size: 13px; line-height: 1.8; margin: 0;">
-    AGO 2025 ──●── OCT 2025 ──●── DIC 2025 ──●── ENE 2026
-               │            │            │            │
-             🌱 CTE      📖 Lectura   🤝 Clase    ✅ Acuerdos
-           Bienvenida   Dialogada    Abierta    Finales
-         Roles claros   + Kahoot    Colectiva  Seguimiento
-         80% participa  Compartir   Reflexión  Bitácora
-                        criterios   grupal     activa
-                </pre>
+                        <div style="background: #F8F9FA; padding: 25px; border-radius: 8px; margin: 20px 0;">
+                            <h5 style="color: var(--borgona); font-size: 18px; margin-bottom: 20px; text-align: center; font-weight: 700; border-bottom: 2px solid var(--beige); padding-bottom: 10px;">
+                                TRAYECTO DOCENTE:<br>
+                                <span style="font-size: 15px; color: var(--terracota);">Narrativa Visual del Aprendizaje Colectivo</span>
+                            </h5>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px;">
+                                <!-- Recuadro 1: Azul -->
+                                <div style="background: linear-gradient(135deg, #5B9BD5 0%, #4A8BC2 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">💬</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">1. Participación de cada miembro</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">La confianza creció de forma desigual. Algunos expresan dudas más que otros, permitiendo que diferentes voces emergieran.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Recuadro 2: Verde -->
+                                <div style="background: linear-gradient(135deg, #70AD47 0%, #5A8A39 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">👥</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">2. Roles asignados</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">No se trata de repartir tareas mecánicas, sino de distribuir el liderazgo colaborativo, ayudándonos a organizarnos con sentido común.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Recuadro 3: Amarillo -->
+                                <div style="background: linear-gradient(135deg, #FFC000 0%, #E6AC00 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">🗣️</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">3. Formas de interacción</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">Evolucionamos de informes rígidos hacia conversaciones horizontales y naturales. Preguntas abiertas con escucha genuina.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Recuadro 4: Naranja -->
+                                <div style="background: linear-gradient(135deg, #FF9933 0%, #E67E22 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">📊</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">4. Actividades realizadas</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">El centro del aprendizaje es vivencial. Valoramos la colaboración y experiencias compartidas, no solo teoría.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Recuadro 5: Rojo -->
+                                <div style="background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">⚠️</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">5. Conflictos y sus soluciones</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">Reconocer el conflicto sin evadirlo. Abordamos diferencias desde el respeto, sin imponer, escuchando activamente.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Recuadro 6: Morado -->
+                                <div style="background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">📚</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">6. Tipo de conocimiento construido</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">Ubicado, práctico, vivido y reflexionado. Compartimos nuestra práctica, permitiendo enseñar y aprender a la vez.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Recuadro 7: Rosa -->
+                                <div style="background: linear-gradient(135deg, #EC7C9B 0%, #D5627F 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">💡</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">7. Fuentes de aprendizaje</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">Múltiples recursos: vivencias personales, intercambio entre pares, lecturas especializadas. Reconocemos que los colegas son un recurso valioso.</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Recuadro 8: Turquesa -->
+                                <div style="background: linear-gradient(135deg, #26A69A 0%, #1E8A7D 100%); padding: 20px; border-radius: 10px; min-height: 140px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: 10px; right: 10px; font-size: 40px; opacity: 0.2;">✓</div>
+                                    <div style="color: white; position: relative; z-index: 1;">
+                                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 5px;">8. Seguimiento a los compromisos</div>
+                                        <div style="font-size: 13px; line-height: 1.5;">Reflejo de madurez. Revisar, ajustar y mantener una dirección clara. Responsabilidad compartida en cada acuerdo común.</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
-                        <p style="margin: 15px 0 10px 0; font-weight: 600;">Cómo construir esta línea de tiempo:</p>
-                        <ul style="margin-left: 20px; line-height: 1.8;">
-                            <li>Dibujar una línea horizontal en papel bond o pizarrón</li>
-                            <li>Marcar los meses o fechas clave del ciclo escolar</li>
-                            <li>En cada punto colocar un círculo o símbolo destacado</li>
-                            <li>Debajo de cada punto escribir 2-3 actividades o logros específicos</li>
-                            <li>Usar emojis, dibujos o post-its de colores para decorar</li>
+                        <p style="margin: 15px 0 10px 0; font-weight: 600; color: var(--gris-texto);">💡 Cómo replicar este formato:</p>
+                        <ul style="margin-left: 20px; line-height: 1.8; color: var(--gris-texto);">
+                            <li>Dibujar 8 recuadros en papel bond o cartulina</li>
+                            <li>Usar marcadores o papeles de colores diferentes (azul, verde, amarillo, naranja, rojo, morado, rosa, turquesa)</li>
+                            <li>Escribir el número y título en la parte superior de cada recuadro</li>
+                            <li>Agregar el contenido específico de su comunidad en 2-3 oraciones</li>
+                            <li>Decorar con emojis grandes y semitransparentes al fondo</li>
+                            <li>Agregar un título general en la parte superior del papel</li>
                         </ul>
                     </div>
                 </div>
@@ -1028,6 +1298,34 @@
                 </ul>
 
                 <p><strong>Objetivo:</strong> Identificar logros alcanzados, reconocer fortalezas del colectivo y visibilizar áreas de oportunidad para seguir creciendo como comunidad de aprendizaje.</p>
+
+                <div class="team-generator-section" onclick="toggleTeamGenerator(event)">
+                    <div class="team-generator-header">
+                        <h4 class="team-generator-title">🎲 Generador automático de equipos</h4>
+                        <span class="team-generator-icon">▼</span>
+                    </div>
+                    <div class="team-generator-content" id="teamGeneratorContent">
+                        <p style="color: #666; margin-bottom: 20px;">Utiliza esta herramienta para formar equipos de manera aleatoria y equitativa.</p>
+                        
+                        <div class="form-group">
+                            <label for="teamSize">¿Cuántos integrantes tendrá cada equipo?</label>
+                            <input type="number" id="teamSize" min="2" max="10" value="4" placeholder="Ej: 3, 4 o 5">
+                            <p class="help-text">Ingresa el número de docentes que conformarán cada equipo</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participantNames">Nombres de los participantes</label>
+                            <textarea id="participantNames" placeholder="Escribe un nombre por línea. Ejemplo:&#10;María García&#10;Juan Pérez&#10;Ana López&#10;Carlos Rodríguez" oninput="updateParticipantCount()"></textarea>
+                            <p class="help-text" id="participantCount">Escribe un nombre en cada línea. <strong>Total: 0 participantes</strong></p>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <button class="btn" onclick="generateTeams(event)">🎲 Generar equipos</button>
+                        </div>
+
+                        <div id="teamsResult"></div>
+                    </div>
+                </div>
 
                 <h3>Preguntas guía para la reflexión:</h3>
                 <div class="questions-container">
@@ -1277,6 +1575,18 @@
         </div>
     </div>
 
+    <!-- Modal de advertencia -->
+    <div class="warning-modal" id="warningModal">
+        <div class="warning-content">
+            <h3 class="warning-title">⚠️ Advertencia</h3>
+            <p class="warning-message" id="warningMessage"></p>
+            <div class="warning-buttons">
+                <button class="btn btn-secondary" onclick="closeWarningModal()">❌ Cancelar</button>
+                <button class="btn" onclick="confirmTeamGeneration()">✅ Continuar de todos modos</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Remove scroll indicator after scrolling
         window.addEventListener('scroll', function() {
@@ -1323,6 +1633,187 @@
                 icon.classList.add('open');
             }
         }
+
+        // Toggle team generator
+        function toggleTeamGenerator(event) {
+            // Evitar toggle si se hace clic en inputs o botones
+            if (event.target.closest('input, textarea, button')) {
+                return;
+            }
+            
+            const content = document.getElementById('teamGeneratorContent');
+            const icon = event.currentTarget.querySelector('.team-generator-icon');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('open');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('open');
+            }
+        }
+
+        // Update participant count
+        function updateParticipantCount() {
+            const textarea = document.getElementById('participantNames');
+            const names = textarea.value.trim().split('\n').filter(name => name.trim() !== '');
+            const countElement = document.getElementById('participantCount');
+            countElement.innerHTML = `Escribe un nombre en cada línea. <strong>Total: ${names.length} participantes</strong>`;
+        }
+
+        // Variables para el modal de confirmación
+        let pendingTeamData = null;
+
+        // Generate teams
+        function generateTeams(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const textarea = document.getElementById('participantNames');
+            const teamSizeInput = document.getElementById('teamSize');
+            const resultDiv = document.getElementById('teamsResult');
+            
+            // Obtener nombres y limpiar
+            const names = textarea.value.trim().split('\n')
+                .map(name => name.trim())
+                .filter(name => name !== '');
+            
+            const teamSize = parseInt(teamSizeInput.value);
+            
+            // Validaciones básicas
+            if (names.length === 0) {
+                alert('❌ Por favor, ingresa al menos un nombre de participante.');
+                return;
+            }
+            
+            if (teamSize < 2) {
+                alert('❌ El tamaño del equipo debe ser al menos 2 personas.');
+                return;
+            }
+            
+            if (names.length < teamSize) {
+                alert('❌ No hay suficientes participantes para formar un equipo completo.');
+                return;
+            }
+            
+            // Verificar si habrá equipos incompletos
+            const remainder = names.length % teamSize;
+            
+            if (remainder !== 0) {
+                // Guardar datos para usar después de la confirmación
+                pendingTeamData = { names, teamSize };
+                
+                const numCompleteTeams = Math.floor(names.length / teamSize);
+                const warningMessage = `
+                    Con ${names.length} participantes y equipos de ${teamSize} personas, 
+                    se formarán <strong>${numCompleteTeams} equipo${numCompleteTeams !== 1 ? 's' : ''} completo${numCompleteTeams !== 1 ? 's' : ''}</strong> 
+                    y quedará <strong>1 equipo con solo ${remainder} ${remainder === 1 ? 'persona' : 'personas'}</strong>.
+                    <br><br>
+                    ¿Deseas continuar de todos modos?
+                `;
+                
+                showWarningModal(warningMessage);
+                return;
+            }
+            
+            // Si no hay problemas, generar equipos directamente
+            performTeamGeneration(names, teamSize);
+        }
+
+        // Show warning modal
+        function showWarningModal(message) {
+            const modal = document.getElementById('warningModal');
+            const messageElement = document.getElementById('warningMessage');
+            messageElement.innerHTML = message;
+            modal.classList.add('show');
+        }
+
+        // Close warning modal
+        function closeWarningModal() {
+            const modal = document.getElementById('warningModal');
+            modal.classList.remove('show');
+            pendingTeamData = null;
+        }
+
+        // Confirm team generation
+        function confirmTeamGeneration() {
+            closeWarningModal();
+            if (pendingTeamData) {
+                performTeamGeneration(pendingTeamData.names, pendingTeamData.teamSize);
+                pendingTeamData = null;
+            }
+        }
+
+        // Perform team generation
+        function performTeamGeneration(names, teamSize) {
+            const resultDiv = document.getElementById('teamsResult');
+            
+            // Mezclar nombres aleatoriamente (algoritmo Fisher-Yates)
+            const shuffled = [...names];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            
+            // Formar equipos
+            const teams = [];
+            for (let i = 0; i < shuffled.length; i += teamSize) {
+                teams.push(shuffled.slice(i, i + teamSize));
+            }
+            
+            // Generar HTML de resultados
+            let html = '<div class="teams-result">';
+            html += '<h3 style="font-family: \'Crimson Text\', serif; font-size: 26px; color: var(--borgona); text-align: center; margin-bottom: 10px;">🎉 Equipos generados</h3>';
+            html += `<p style="text-align: center; color: #666; margin-bottom: 25px;"><strong>${names.length}</strong> participantes • <strong>${teams.length}</strong> equipos formados</p>`;
+            
+            const teamColors = [
+                'linear-gradient(135deg, #5B9BD5 0%, #4A8BC2 100%)',
+                'linear-gradient(135deg, #70AD47 0%, #5A8A39 100%)',
+                'linear-gradient(135deg, #FFC000 0%, #E6AC00 100%)',
+                'linear-gradient(135deg, #FF9933 0%, #E67E22 100%)',
+                'linear-gradient(135deg, #E74C3C 0%, #C0392B 100%)',
+                'linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%)',
+                'linear-gradient(135deg, #EC7C9B 0%, #D5627F 100%)',
+                'linear-gradient(135deg, #26A69A 0%, #1E8A7D 100%)'
+            ];
+            
+            teams.forEach((team, index) => {
+                const colorIndex = index % teamColors.length;
+                const isIncomplete = team.length < teamSize;
+                html += `<div style="background: ${teamColors[colorIndex]}; padding: 20px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); position: relative; overflow: hidden;">`;
+                
+                if (isIncomplete) {
+                    html += '<div style="position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.95); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #E67E22; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">⚠️ Incompleto</div>';
+                }
+                
+                html += '<div style="color: white;">';
+                html += `<h4 style="margin: 0 0 15px 0; font-size: 20px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px;">Equipo ${index + 1} <span style="font-size: 14px; opacity: 0.9;">(${team.length} integrante${team.length !== 1 ? 's' : ''})</span></h4>`;
+                html += '<ul style="margin: 0; padding-left: 20px; line-height: 1.8;">';
+                team.forEach(member => {
+                    html += `<li style="margin-bottom: 5px;">👤 ${member}</li>`;
+                });
+                html += '</ul></div></div>';
+            });
+            
+            html += '<div style="text-align: center; margin-top: 25px;">';
+            html += '<button class="btn btn-secondary" onclick="generateTeams(event)">🔄 Generar nuevos equipos</button>';
+            html += '</div>';
+            html += '</div>';
+            
+            resultDiv.innerHTML = html;
+            
+            // Scroll suave hacia los resultados
+            setTimeout(() => {
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('warningModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWarningModal();
+            }
+        });
     </script>
 </body>
 </html>
