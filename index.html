@@ -2058,8 +2058,12 @@
             const containerHeight = container.offsetHeight;
 
             huellaPhrases.forEach((phrase, index) => {
-                const pathIndex = Math.floor(index / 15);
-                const positionOnPath = (index % 15) / 15;
+                // Calcular cuántas frases por anillo (mínimo 3, máximo 15)
+                const totalPhrases = huellaPhrases.length;
+                const phrasesPerRing = Math.min(15, Math.max(3, Math.ceil(totalPhrases / 10)));
+                
+                const pathIndex = Math.floor(index / phrasesPerRing);
+                const positionOnPath = (index % phrasesPerRing) / phrasesPerRing;
                 
                 const position = getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight);
                 
