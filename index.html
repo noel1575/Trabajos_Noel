@@ -868,6 +868,50 @@
             opacity: 0.7;
         }
 
+        /* Menú de navegación */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--borgona) 0%, var(--terracota-oscuro) 100%);
+            padding: 15px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .nav-btn:hover {
+            background: white;
+            color: var(--borgona);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn.active {
+            background: white;
+            color: var(--borgona);
+        }
+        
+        /* Ajuste para compensar el menú fijo */
+        body {
+            padding-top: 70px;
+        }
+
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {
                 transform: translateX(-50%) translateY(0);
@@ -882,6 +926,14 @@
     </style>
 </head>
 <body>
+    <!-- Menú de navegación -->
+    <nav class="nav-menu">
+        <button class="nav-btn active" onclick="mostrarSeccion('taller')">📚 Taller Docente</button>
+        <button class="nav-btn" onclick="mostrarSeccion('huella')">👣 Huella Colectiva</button>
+    </nav>
+
+    <!-- Sección del Taller -->
+    <div id="seccion-taller">
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -1818,6 +1870,453 @@
                 closeWarningModal();
             }
         });
+
+        // ===== CÓDIGO DE LA HUELLA COLECTIVA =====
+        
+        // Patrón de huella dactilar
+        const huellaFingerprintPattern = [
+            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.08, ry: 0.12, rotation: 15 },
+            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.13, ry: 0.18, rotation: 15 },
+            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.18, ry: 0.24, rotation: 15 },
+            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.23, ry: 0.30, rotation: 15 },
+            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.28, ry: 0.36, rotation: 15 },
+            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.33, ry: 0.41, rotation: 15 },
+            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.38, startAngle: -90, endAngle: 270, side: 'left' },
+            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.42, startAngle: -90, endAngle: 270, side: 'left' },
+            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.38, startAngle: -90, endAngle: 270, side: 'right' },
+            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.42, startAngle: -90, endAngle: 270, side: 'right' },
+        ];
+
+        let huellaPhrases = [];
+
+        async function loadHuellaPhrases() {
+            try {
+                const result = await window.storage.list('huella:');
+                if (result && result.keys) {
+                    huellaPhrases = [];
+                    for (const key of result.keys) {
+                        try {
+                            const data = await window.storage.get(key, true);
+                            if (data && data.value) {
+                                huellaPhrases.push(data.value);
+                            }
+                        } catch (e) {
+                            console.log('Clave no encontrada:', key);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Iniciando nueva huella colectiva');
+                huellaPhrases = [];
+            }
+            
+            updateHuellaCounter();
+            renderHuellaFingerprint();
+        }
+
+        async function submitHuellaPhrase() {
+            const input = document.getElementById('huella-phraseInput');
+            const phrase = input.value.trim();
+            
+            if (!phrase) {
+                alert('Por favor, escribe una frase antes de enviar');
+                return;
+            }
+
+            try {
+                const timestamp = Date.now();
+                const key = `huella:${timestamp}`;
+                await window.storage.set(key, phrase, true);
+                
+                huellaPhrases.push(phrase);
+                input.value = '';
+                
+                updateHuellaCounter();
+                renderHuellaFingerprint();
+                
+                document.querySelector('.huella-fingerprint-container').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            } catch (error) {
+                console.error('Error al guardar:', error);
+                alert('Hubo un error al guardar tu frase. Por favor intenta de nuevo.');
+            }
+        }
+
+        async function resetHuella() {
+            if (!confirm('⚠️ ¿Estás seguro de que deseas borrar TODAS las frases de la huella colectiva? Esta acción no se puede deshacer.')) {
+                return;
+            }
+
+            try {
+                const result = await window.storage.list('huella:');
+                if (result && result.keys) {
+                    for (const key of result.keys) {
+                        try {
+                            await window.storage.delete(key, true);
+                        } catch (e) {
+                            console.log('Error al borrar:', key);
+                        }
+                    }
+                }
+                
+                huellaPhrases = [];
+                updateHuellaCounter();
+                renderHuellaFingerprint();
+                
+                alert('✅ La huella colectiva ha sido reiniciada exitosamente.');
+            } catch (error) {
+                console.error('Error al reiniciar:', error);
+                alert('Hubo un error al reiniciar la huella. Por favor intenta de nuevo.');
+            }
+        }
+
+        function updateHuellaCounter() {
+            const counter = document.getElementById('huella-counter');
+            if (counter) {
+                counter.textContent = `${huellaPhrases.length} ${huellaPhrases.length === 1 ? 'persona ha' : 'personas han'} dejado su huella`;
+            }
+        }
+
+        function getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight) {
+            const path = huellaFingerprintPattern[pathIndex % huellaFingerprintPattern.length];
+            const centerX = containerWidth * path.cx;
+            const centerY = containerHeight * path.cy;
+
+            if (path.type === 'ellipse') {
+                const radiusX = containerWidth * path.rx;
+                const radiusY = containerHeight * path.ry;
+                const angle = positionOnPath * Math.PI * 2;
+                const rotation = (path.rotation || 0) * Math.PI / 180;
+                
+                const x = radiusX * Math.cos(angle);
+                const y = radiusY * Math.sin(angle);
+                
+                const rotatedX = x * Math.cos(rotation) - y * Math.sin(rotation);
+                const rotatedY = x * Math.sin(rotation) + y * Math.cos(rotation);
+                
+                return {
+                    x: centerX + rotatedX,
+                    y: centerY + rotatedY,
+                    angle: angle + rotation
+                };
+            } else if (path.type === 'arc') {
+                const radius = containerWidth * path.radius;
+                const startAngle = path.startAngle * Math.PI / 180;
+                const endAngle = path.endAngle * Math.PI / 180;
+                const side = path.side || 'left';
+                
+                let angle;
+                if (side === 'left') {
+                    angle = startAngle + (endAngle - startAngle) * positionOnPath;
+                } else {
+                    angle = startAngle - (endAngle - startAngle) * positionOnPath;
+                }
+                
+                return {
+                    x: centerX + radius * Math.cos(angle),
+                    y: centerY + radius * Math.sin(angle),
+                    angle: angle
+                };
+            }
+        }
+
+        function renderHuellaFingerprint() {
+            const container = document.getElementById('huella-fingerprint');
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            if (huellaPhrases.length === 0) {
+                container.innerHTML = '<div class="huella-empty-state">Sé el primero en dejar tu huella...</div>';
+                return;
+            }
+
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+
+            huellaPhrases.forEach((phrase, index) => {
+                const pathIndex = Math.floor(index / 15);
+                const positionOnPath = (index % 15) / 15;
+                
+                const position = getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight);
+                
+                const phraseElement = document.createElement('div');
+                phraseElement.className = 'huella-phrase';
+                phraseElement.textContent = phrase;
+                phraseElement.style.left = `${position.x}px`;
+                phraseElement.style.top = `${position.y}px`;
+                phraseElement.style.transform = `translate(-50%, -50%) rotate(${position.angle + Math.PI / 2}rad)`;
+                phraseElement.style.animationDelay = `${index * 0.05}s`;
+                
+                const fontSize = 12 + (index % 5);
+                phraseElement.style.fontSize = `${fontSize}px`;
+                
+                container.appendChild(phraseElement);
+            });
+        }
+
+        // Evento para enviar con Enter
+        const huellaInput = document.getElementById('huella-phraseInput');
+        if (huellaInput) {
+            huellaInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    submitHuellaPhrase();
+                }
+            });
+        }
+
+        // ===== NAVEGACIÓN ENTRE SECCIONES =====
+        
+        function mostrarSeccion(seccion) {
+            const tallerSection = document.getElementById('seccion-taller');
+            const huellaSection = document.getElementById('seccion-huella');
+            const navButtons = document.querySelectorAll('.nav-btn');
+            
+            if (seccion === 'taller') {
+                tallerSection.style.display = 'block';
+                huellaSection.style.display = 'none';
+                navButtons[0].classList.add('active');
+                navButtons[1].classList.remove('active');
+            } else if (seccion === 'huella') {
+                tallerSection.style.display = 'none';
+                huellaSection.style.display = 'block';
+                navButtons[0].classList.remove('active');
+                navButtons[1].classList.add('active');
+                
+                // Cargar frases cuando se muestra la sección
+                loadHuellaPhrases();
+            }
+            
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
+    </div>
+    <!-- Fin Sección del Taller -->
+    <!-- Sección de la Huella Colectiva -->
+    <div id="seccion-huella" style="display: none;">
+        <style>
+            .huella-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 40px 20px;
+            }
+
+            .huella-header {
+                text-align: center;
+                margin-bottom: 60px;
+            }
+
+            .huella-header h1 {
+                font-family: 'Crimson Text', serif;
+                font-size: clamp(2.5rem, 6vw, 4.5rem);
+                font-weight: 700;
+                color: var(--borgona);
+                margin-bottom: 15px;
+                letter-spacing: -1px;
+            }
+
+            .huella-header .subtitle {
+                font-size: clamp(1rem, 2vw, 1.3rem);
+                color: var(--terracota);
+                font-weight: 300;
+                font-style: italic;
+            }
+
+            .huella-input-section {
+                background: white;
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+                margin-bottom: 50px;
+                border: 3px solid var(--borgona);
+            }
+
+            .huella-input-section label {
+                display: block;
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+                color: var(--borgona);
+                font-weight: 400;
+            }
+
+            .huella-input-section textarea {
+                width: 100%;
+                padding: 20px;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 1.2rem;
+                border: 2px solid var(--borgona);
+                border-radius: 12px;
+                resize: vertical;
+                min-height: 120px;
+                background: var(--marfil);
+                color: var(--gris-texto);
+                transition: all 0.3s ease;
+            }
+
+            .huella-input-section textarea:focus {
+                outline: none;
+                border-color: var(--terracota);
+                box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+                transform: translateY(-2px);
+            }
+
+            .huella-buttons {
+                display: flex;
+                gap: 15px;
+                margin-top: 20px;
+                flex-wrap: wrap;
+            }
+
+            .huella-btn {
+                padding: 15px 40px;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 1.1rem;
+                font-weight: 700;
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .huella-btn-primary {
+                background: var(--terracota);
+                color: white;
+                box-shadow: 0 4px 15px rgba(160, 82, 45, 0.3);
+            }
+
+            .huella-btn-primary:hover {
+                background: var(--terracota-oscuro);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(160, 82, 45, 0.4);
+            }
+
+            .huella-btn-secondary {
+                background: var(--borgona);
+                color: white;
+                box-shadow: 0 4px 15px rgba(107, 44, 63, 0.3);
+            }
+
+            .huella-btn-secondary:hover {
+                background: var(--borgona-claro);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(107, 44, 63, 0.4);
+            }
+
+            .huella-fingerprint-container {
+                background: white;
+                padding: 60px 40px;
+                border-radius: 20px;
+                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+                border: 3px solid var(--borgona);
+                min-height: 600px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .huella-fingerprint-title {
+                font-family: 'Crimson Text', serif;
+                font-size: 2rem;
+                color: var(--borgona);
+                margin-bottom: 40px;
+                text-align: center;
+            }
+
+            .huella-counter {
+                font-size: 1.1rem;
+                color: var(--terracota);
+                margin-bottom: 30px;
+                font-weight: 400;
+            }
+
+            #huella-fingerprint {
+                position: relative;
+                width: 100%;
+                max-width: 600px;
+                height: 600px;
+            }
+
+            .huella-phrase {
+                position: absolute;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 14px;
+                color: var(--gris-texto);
+                opacity: 0;
+                animation: huellaFadeIn 0.8s ease-out forwards;
+                transform-origin: center;
+                white-space: nowrap;
+                cursor: default;
+                transition: all 0.3s ease;
+            }
+
+            .huella-phrase:hover {
+                color: var(--terracota);
+                font-weight: 700;
+                z-index: 10;
+                transform: scale(1.3);
+            }
+
+            .huella-empty-state {
+                text-align: center;
+                color: #999;
+                font-style: italic;
+                font-size: 1.2rem;
+                padding: 60px 20px;
+            }
+
+            .huella-loading {
+                text-align: center;
+                padding: 40px;
+                color: #666;
+                font-style: italic;
+            }
+
+            @keyframes huellaFadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8) rotate(-10deg);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1) rotate(0deg);
+                }
+            }
+        </style>
+
+        <div class="huella-container">
+            <div class="huella-header">
+                <h1>Huella Colectiva</h1>
+                <p class="subtitle">Deja tu huella en el mundo con tus palabras</p>
+            </div>
+
+            <div class="huella-input-section">
+                <label for="huella-phraseInput">Escribe tu frase para formar parte de la huella colectiva:</label>
+                <textarea 
+                    id="huella-phraseInput" 
+                    placeholder="Comparte un pensamiento, un sueño, una reflexión..."
+                    maxlength="200"
+                ></textarea>
+                <div class="huella-buttons">
+                    <button class="huella-btn huella-btn-primary" onclick="submitHuellaPhrase()">Dejar mi huella</button>
+                    <button class="huella-btn huella-btn-secondary" onclick="resetHuella()">🔄 Reiniciar huella</button>
+                </div>
+            </div>
+
+            <div class="huella-fingerprint-container">
+                <h2 class="huella-fingerprint-title">La Huella Colectiva</h2>
+                <div class="huella-counter" id="huella-counter">Cargando...</div>
+                <div id="huella-fingerprint">
+                    <div class="huella-loading">Cargando frases...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Sección de la Huella Colectiva -->
 </body>
 </html>
