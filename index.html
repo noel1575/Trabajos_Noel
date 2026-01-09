@@ -1899,31 +1899,41 @@
   // ===== CÓDIGO DE LA HUELLA COLECTIVA CON FIREBASE =====
         
          const huellaFingerprintPattern = [
-            // Núcleo central - espiral pequeña
-            { type: 'curve', points: [[0.5, 0.45], [0.52, 0.47], [0.52, 0.50], [0.50, 0.52], [0.48, 0.50], [0.48, 0.48]] },
-            { type: 'curve', points: [[0.5, 0.42], [0.54, 0.45], [0.55, 0.50], [0.50, 0.55], [0.45, 0.50], [0.46, 0.45]] },
-            
-            // Curvas superiores (arco)
-            { type: 'curve', points: [[0.35, 0.35], [0.42, 0.30], [0.50, 0.28], [0.58, 0.30], [0.65, 0.35]] },
-            { type: 'curve', points: [[0.33, 0.38], [0.40, 0.32], [0.50, 0.30], [0.60, 0.32], [0.67, 0.38]] },
-            { type: 'curve', points: [[0.31, 0.41], [0.38, 0.34], [0.50, 0.32], [0.62, 0.34], [0.69, 0.41]] },
-            
-            // Curvas del lado izquierdo
-            { type: 'curve', points: [[0.30, 0.45], [0.28, 0.50], [0.28, 0.58], [0.30, 0.65], [0.35, 0.70]] },
-            { type: 'curve', points: [[0.33, 0.48], [0.31, 0.52], [0.31, 0.60], [0.33, 0.67], [0.38, 0.72]] },
-            { type: 'curve', points: [[0.36, 0.50], [0.34, 0.54], [0.34, 0.62], [0.36, 0.68], [0.40, 0.73]] },
-            
-            // Curvas del lado derecho
-            { type: 'curve', points: [[0.70, 0.45], [0.72, 0.50], [0.72, 0.58], [0.70, 0.65], [0.65, 0.70]] },
-            { type: 'curve', points: [[0.67, 0.48], [0.69, 0.52], [0.69, 0.60], [0.67, 0.67], [0.62, 0.72]] },
-            { type: 'curve', points: [[0.64, 0.50], [0.66, 0.54], [0.66, 0.62], [0.64, 0.68], [0.60, 0.73]] },
-            
-            // Curvas inferiores centrales
-            { type: 'curve', points: [[0.42, 0.72], [0.45, 0.75], [0.50, 0.76], [0.55, 0.75], [0.58, 0.72]] },
-            { type: 'curve', points: [[0.40, 0.68], [0.44, 0.72], [0.50, 0.73], [0.56, 0.72], [0.60, 0.68]] },
-            { type: 'curve', points: [[0.38, 0.64], [0.43, 0.68], [0.50, 0.70], [0.57, 0.68], [0.62, 0.64]] },
-        ];
-
+    // Talón (parte inferior redondeada)
+    { type: 'curve', points: [[0.35, 0.85], [0.30, 0.90], [0.35, 0.95], [0.50, 0.98], [0.65, 0.95], [0.70, 0.90], [0.65, 0.85]] },
+    { type: 'curve', points: [[0.37, 0.80], [0.32, 0.85], [0.37, 0.90], [0.50, 0.93], [0.63, 0.90], [0.68, 0.85], [0.63, 0.80]] },
+    { type: 'curve', points: [[0.39, 0.75], [0.34, 0.80], [0.39, 0.85], [0.50, 0.88], [0.61, 0.85], [0.66, 0.80], [0.61, 0.75]] },
+    
+    // Arco del pie (parte central)
+    { type: 'curve', points: [[0.40, 0.70], [0.36, 0.75], [0.40, 0.78], [0.50, 0.80], [0.60, 0.78], [0.64, 0.75], [0.60, 0.70]] },
+    { type: 'curve', points: [[0.41, 0.65], [0.38, 0.68], [0.42, 0.72], [0.50, 0.74], [0.58, 0.72], [0.62, 0.68], [0.59, 0.65]] },
+    { type: 'curve', points: [[0.42, 0.60], [0.39, 0.63], [0.43, 0.67], [0.50, 0.69], [0.57, 0.67], [0.61, 0.63], [0.58, 0.60]] },
+    { type: 'curve', points: [[0.43, 0.55], [0.40, 0.58], [0.44, 0.62], [0.50, 0.64], [0.56, 0.62], [0.60, 0.58], [0.57, 0.55]] },
+    
+    // Metatarso (parte ancha antes de los dedos)
+    { type: 'curve', points: [[0.38, 0.50], [0.35, 0.53], [0.40, 0.56], [0.50, 0.58], [0.60, 0.56], [0.65, 0.53], [0.62, 0.50]] },
+    { type: 'curve', points: [[0.36, 0.45], [0.33, 0.48], [0.38, 0.51], [0.50, 0.53], [0.62, 0.51], [0.67, 0.48], [0.64, 0.45]] },
+    { type: 'curve', points: [[0.35, 0.40], [0.32, 0.43], [0.37, 0.46], [0.50, 0.48], [0.63, 0.46], [0.68, 0.43], [0.65, 0.40]] },
+    
+    // Dedo gordo (pulgar del pie - el más grande, izquierda)
+    { type: 'curve', points: [[0.25, 0.28], [0.22, 0.32], [0.25, 0.36], [0.30, 0.38], [0.35, 0.36], [0.38, 0.32], [0.35, 0.28]] },
+    { type: 'curve', points: [[0.27, 0.24], [0.24, 0.28], [0.27, 0.32], [0.32, 0.34], [0.37, 0.32], [0.40, 0.28], [0.37, 0.24]] },
+    
+    // Segundo dedo
+    { type: 'curve', points: [[0.38, 0.20], [0.36, 0.24], [0.39, 0.27], [0.42, 0.28], [0.45, 0.27], [0.48, 0.24], [0.45, 0.20]] },
+    { type: 'curve', points: [[0.40, 0.16], [0.38, 0.20], [0.41, 0.23], [0.44, 0.24], [0.47, 0.23], [0.50, 0.20], [0.47, 0.16]] },
+    
+    // Tercer dedo
+    { type: 'curve', points: [[0.48, 0.14], [0.46, 0.18], [0.49, 0.21], [0.52, 0.22], [0.55, 0.21], [0.58, 0.18], [0.55, 0.14]] },
+    { type: 'curve', points: [[0.50, 0.10], [0.48, 0.14], [0.51, 0.17], [0.54, 0.18], [0.57, 0.17], [0.60, 0.14], [0.57, 0.10]] },
+    
+    // Cuarto dedo
+    { type: 'curve', points: [[0.58, 0.12], [0.56, 0.16], [0.59, 0.19], [0.62, 0.20], [0.65, 0.19], [0.68, 0.16], [0.65, 0.12]] },
+    { type: 'curve', points: [[0.60, 0.08], [0.58, 0.12], [0.61, 0.15], [0.64, 0.16], [0.67, 0.15], [0.70, 0.12], [0.67, 0.08]] },
+    
+    // Quinto dedo (meñique - el más pequeño, derecha)
+    { type: 'curve', points: [[0.68, 0.14], [0.66, 0.17], [0.69, 0.20], [0.72, 0.21], [0.75, 0.20], [0.77, 0.17], [0.75, 0.14]] },
+];
         let huellaPhrases = [];
         let firebaseInitialized = false;
 
@@ -2076,55 +2086,66 @@ function getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, cont
     };
 }
 
-        function renderHuellaFingerprint() {
-            const container = document.getElementById('huella-fingerprint');
-            if (!container) return;
+function renderHuellaFingerprint() {
+    const container = document.getElementById('huella-fingerprint');
+    if (!container) return;
+    
+    container.innerHTML = '';
+
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+
+    // Calcular cuántos puntos de relleno necesitamos
+    const totalSlotsNeeded = 100; // Total de espacios en la huella
+    const realPhrases = huellaPhrases.length;
+    const fillerDots = Math.max(0, totalSlotsNeeded - realPhrases);
+    
+    // Crear array combinado: frases reales + puntos de relleno
+    const allItems = [
+        ...huellaPhrases.map(phrase => ({ type: 'phrase', content: phrase })),
+        ...Array(fillerDots).fill({ type: 'dot' })
+    ];
+
+    if (allItems.length === 0) {
+        container.innerHTML = '<div class="huella-empty-state">Sé el primero en dejar tu huella...</div>';
+        return;
+    }
+
+    // Distribuir items uniformemente
+    const phrasesPerCurve = Math.max(3, Math.ceil(allItems.length / huellaFingerprintPattern.length));
+    
+    allItems.forEach((item, index) => {
+        const pathIndex = Math.floor(index / phrasesPerCurve);
+        const positionOnPath = (index % phrasesPerCurve) / phrasesPerCurve;
+        
+        const position = getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight);
+        
+        if (item.type === 'phrase') {
+            // Crear elemento de frase real
+            const phraseElement = document.createElement('div');
+            phraseElement.className = 'huella-phrase';
+            phraseElement.textContent = item.content;
+            phraseElement.style.left = `${position.x}px`;
+            phraseElement.style.top = `${position.y}px`;
+            phraseElement.style.transform = `translate(-50%, -50%) rotate(${position.angle}rad)`;
+            phraseElement.style.animationDelay = `${index * 0.02}s`;
             
-            container.innerHTML = '';
-
-            if (huellaPhrases.length === 0) {
-                container.innerHTML = '<div class="huella-empty-state">Sé el primero en dejar tu huella...</div>';
-                return;
-            }
-
-            const containerWidth = container.offsetWidth;
-            const containerHeight = container.offsetHeight;
-
-            huellaPhrases.forEach((phrase, index) => {
-                // Calcular cuántas frases por anillo (mínimo 3, máximo 15)
-                const totalPhrases = huellaPhrases.length;
-                const phrasesPerRing = Math.min(15, Math.max(3, Math.ceil(totalPhrases / 10)));
-                
-                const pathIndex = Math.floor(index / phrasesPerRing);
-                const positionOnPath = (index % phrasesPerRing) / phrasesPerRing;
-                
-                const position = getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight);
-                
-                const phraseElement = document.createElement('div');
-                phraseElement.className = 'huella-phrase';
-                phraseElement.textContent = phrase;
-                phraseElement.style.left = `${position.x}px`;
-                phraseElement.style.top = `${position.y}px`;
-                phraseElement.style.transform = `translate(-50%, -50%) rotate(${position.angle}rad)`;
-                phraseElement.style.animationDelay = `${index * 0.05}s`;
-                
-                const fontSize = 12 + (index % 5);
-                phraseElement.style.fontSize = `${fontSize}px`;
-                
-                container.appendChild(phraseElement);
-            });
+            const fontSize = 11 + (index % 4);
+            phraseElement.style.fontSize = `${fontSize}px`;
+            
+            container.appendChild(phraseElement);
+        } else {
+            // Crear punto de relleno
+            const dotElement = document.createElement('div');
+            dotElement.className = 'huella-dot';
+            dotElement.style.left = `${position.x}px`;
+            dotElement.style.top = `${position.y}px`;
+            dotElement.style.animationDelay = `${index * 0.02}s`;
+            
+            container.appendChild(dotElement);
         }
-
-        // Evento para enviar con Enter
-        const huellaInput = document.getElementById('huella-phraseInput');
-        if (huellaInput) {
-            huellaInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    submitHuellaPhrase();
-                }
-            });
-        }
+    });
+}
 
         // ===== NAVEGACIÓN ENTRE SECCIONES =====
         
@@ -2318,6 +2339,22 @@ function getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, cont
                 font-weight: 700;
                 z-index: 10;
                 transform: scale(1.3);
+            }
+
+            .huella-dot {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: var(--gris-texto);
+                border-radius: 50%;
+                opacity: 0;
+                animation: huellaFadeIn 0.8s ease-out forwards;
+                transform: translate(-50%, -50%);
+            }
+            
+            .huella-dot:hover {
+                background: var(--borgona);
+                transform: translate(-50%, -50%) scale(1.5);
             }
 
             .huella-empty-state {
