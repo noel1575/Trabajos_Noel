@@ -1898,17 +1898,30 @@
         // ===== CÓDIGO DE LA HUELLA COLECTIVA =====
   // ===== CÓDIGO DE LA HUELLA COLECTIVA CON FIREBASE =====
         
-        const huellaFingerprintPattern = [
-            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.08, ry: 0.12, rotation: 15 },
-            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.13, ry: 0.18, rotation: 15 },
-            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.18, ry: 0.24, rotation: 15 },
-            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.23, ry: 0.30, rotation: 15 },
-            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.28, ry: 0.36, rotation: 15 },
-            { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.33, ry: 0.41, rotation: 15 },
-            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.38, startAngle: -90, endAngle: 270, side: 'left' },
-            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.42, startAngle: -90, endAngle: 270, side: 'left' },
-            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.38, startAngle: -90, endAngle: 270, side: 'right' },
-            { type: 'arc', cx: 0.5, cy: 0.5, radius: 0.42, startAngle: -90, endAngle: 270, side: 'right' },
+         const huellaFingerprintPattern = [
+            // Núcleo central - espiral pequeña
+            { type: 'curve', points: [[0.5, 0.45], [0.52, 0.47], [0.52, 0.50], [0.50, 0.52], [0.48, 0.50], [0.48, 0.48]] },
+            { type: 'curve', points: [[0.5, 0.42], [0.54, 0.45], [0.55, 0.50], [0.50, 0.55], [0.45, 0.50], [0.46, 0.45]] },
+            
+            // Curvas superiores (arco)
+            { type: 'curve', points: [[0.35, 0.35], [0.42, 0.30], [0.50, 0.28], [0.58, 0.30], [0.65, 0.35]] },
+            { type: 'curve', points: [[0.33, 0.38], [0.40, 0.32], [0.50, 0.30], [0.60, 0.32], [0.67, 0.38]] },
+            { type: 'curve', points: [[0.31, 0.41], [0.38, 0.34], [0.50, 0.32], [0.62, 0.34], [0.69, 0.41]] },
+            
+            // Curvas del lado izquierdo
+            { type: 'curve', points: [[0.30, 0.45], [0.28, 0.50], [0.28, 0.58], [0.30, 0.65], [0.35, 0.70]] },
+            { type: 'curve', points: [[0.33, 0.48], [0.31, 0.52], [0.31, 0.60], [0.33, 0.67], [0.38, 0.72]] },
+            { type: 'curve', points: [[0.36, 0.50], [0.34, 0.54], [0.34, 0.62], [0.36, 0.68], [0.40, 0.73]] },
+            
+            // Curvas del lado derecho
+            { type: 'curve', points: [[0.70, 0.45], [0.72, 0.50], [0.72, 0.58], [0.70, 0.65], [0.65, 0.70]] },
+            { type: 'curve', points: [[0.67, 0.48], [0.69, 0.52], [0.69, 0.60], [0.67, 0.67], [0.62, 0.72]] },
+            { type: 'curve', points: [[0.64, 0.50], [0.66, 0.54], [0.66, 0.62], [0.64, 0.68], [0.60, 0.73]] },
+            
+            // Curvas inferiores centrales
+            { type: 'curve', points: [[0.42, 0.72], [0.45, 0.75], [0.50, 0.76], [0.55, 0.75], [0.58, 0.72]] },
+            { type: 'curve', points: [[0.40, 0.68], [0.44, 0.72], [0.50, 0.73], [0.56, 0.72], [0.60, 0.68]] },
+            { type: 'curve', points: [[0.38, 0.64], [0.43, 0.68], [0.50, 0.70], [0.57, 0.68], [0.62, 0.64]] },
         ];
 
         let huellaPhrases = [];
