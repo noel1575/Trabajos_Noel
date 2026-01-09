@@ -924,6 +924,30 @@
             }
         }
     </style>
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+      import { getDatabase, ref, push, onValue, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC3WskIJrq1R0sSRAU22Y6VGtDiP5bv5uQ",
+        authDomain: "noel-trabajos.firebaseapp.com",
+        databaseURL: "https://noel-trabajos-default-rtdb.firebaseio.com",
+        projectId: "noel-trabajos",
+        storageBucket: "noel-trabajos.firebasestorage.app",
+        messagingSenderId: "558981574272",
+        appId: "1:558981574272:web:528c527faf90c87ef90065"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      
+      window.firebaseDB = database;
+      window.firebaseRef = ref;
+      window.firebasePush = push;
+      window.firebaseOnValue = onValue;
+      window.firebaseRemove = remove;
+    </script>
 </head>
 <body>
     <!-- Menú de navegación -->
@@ -1872,8 +1896,8 @@
         });
 
         // ===== CÓDIGO DE LA HUELLA COLECTIVA =====
+  // ===== CÓDIGO DE LA HUELLA COLECTIVA CON FIREBASE =====
         
-        // Patrón de huella dactilar
         const huellaFingerprintPattern = [
             { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.08, ry: 0.12, rotation: 15 },
             { type: 'ellipse', cx: 0.5, cy: 0.5, rx: 0.13, ry: 0.18, rotation: 15 },
@@ -1888,32 +1912,33 @@
         ];
 
         let huellaPhrases = [];
+        let firebaseInitialized = false;
 
-        async function loadHuellaPhrases() {
-            try {
-                const result = await window.storage.list('huella:');
-                if (result && result.keys) {
-                    huellaPhrases = [];
-                    for (const key of result.keys) {
-                        try {
-                            const data = await window.storage.get(key, true);
-                            if (data && data.value) {
-                                huellaPhrases.push(data.value);
-                            }
-                        } catch (e) {
-                            console.log('Clave no encontrada:', key);
-                        }
-                    }
-                }
-            } catch (error) {
-                console.log('Iniciando nueva huella colectiva');
-                huellaPhrases = [];
+        // Cargar frases desde Firebase
+        function loadHuellaPhrases() {
+            if (!window.firebaseDB) {
+                console.error('Firebase no está inicializado');
+                setTimeout(loadHuellaPhrases, 500);
+                return;
             }
+
+            if (firebaseInitialized) return;
+            firebaseInitialized = true;
+
+            const huellasRef = window.firebaseRef(window.firebaseDB, 'huellas');
             
-            updateHuellaCounter();
-            renderHuellaFingerprint();
+            window.firebaseOnValue(huellasRef, (snapshot) => {
+                huellaPhrases = [];
+                snapshot.forEach((childSnapshot) => {
+                    const data = childSnapshot.val();
+                    huellaPhrases.push(data.frase);
+                });
+                updateHuellaCounter();
+                renderHuellaFingerprint();
+            });
         }
 
+        // Enviar nueva frase
         async function submitHuellaPhrase() {
             const input = document.getElementById('huella-phraseInput');
             const phrase = input.value.trim();
@@ -1923,16 +1948,19 @@
                 return;
             }
 
+            if (!window.firebaseDB) {
+                alert('Conectando con la base de datos...');
+                return;
+            }
+
             try {
-                const timestamp = Date.now();
-                const key = `huella:${timestamp}`;
-                await window.storage.set(key, phrase, true);
+                const huellasRef = window.firebaseRef(window.firebaseDB, 'huellas');
+                await window.firebasePush(huellasRef, {
+                    frase: phrase,
+                    timestamp: Date.now()
+                });
                 
-                huellaPhrases.push(phrase);
                 input.value = '';
-                
-                updateHuellaCounter();
-                renderHuellaFingerprint();
                 
                 document.querySelector('.huella-fingerprint-container').scrollIntoView({ 
                     behavior: 'smooth',
@@ -1944,27 +1972,20 @@
             }
         }
 
+        // Reiniciar huella
         async function resetHuella() {
             if (!confirm('⚠️ ¿Estás seguro de que deseas borrar TODAS las frases de la huella colectiva? Esta acción no se puede deshacer.')) {
                 return;
             }
 
+            if (!window.firebaseDB) {
+                alert('Conectando con la base de datos...');
+                return;
+            }
+
             try {
-                const result = await window.storage.list('huella:');
-                if (result && result.keys) {
-                    for (const key of result.keys) {
-                        try {
-                            await window.storage.delete(key, true);
-                        } catch (e) {
-                            console.log('Error al borrar:', key);
-                        }
-                    }
-                }
-                
-                huellaPhrases = [];
-                updateHuellaCounter();
-                renderHuellaFingerprint();
-                
+                const huellasRef = window.firebaseRef(window.firebaseDB, 'huellas');
+                await window.firebaseRemove(huellasRef);
                 alert('✅ La huella colectiva ha sido reiniciada exitosamente.');
             } catch (error) {
                 console.error('Error al reiniciar:', error);
