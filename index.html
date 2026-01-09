@@ -1898,41 +1898,43 @@
         // ===== CÓDIGO DE LA HUELLA COLECTIVA =====
   // ===== CÓDIGO DE LA HUELLA COLECTIVA CON FIREBASE =====
         
-         const huellaFingerprintPattern = [
-    // Talón (parte inferior redondeada)
-    { type: 'curve', points: [[0.35, 0.85], [0.30, 0.90], [0.35, 0.95], [0.50, 0.98], [0.65, 0.95], [0.70, 0.90], [0.65, 0.85]] },
-    { type: 'curve', points: [[0.37, 0.80], [0.32, 0.85], [0.37, 0.90], [0.50, 0.93], [0.63, 0.90], [0.68, 0.85], [0.63, 0.80]] },
-    { type: 'curve', points: [[0.39, 0.75], [0.34, 0.80], [0.39, 0.85], [0.50, 0.88], [0.61, 0.85], [0.66, 0.80], [0.61, 0.75]] },
-    
-    // Arco del pie (parte central)
-    { type: 'curve', points: [[0.40, 0.70], [0.36, 0.75], [0.40, 0.78], [0.50, 0.80], [0.60, 0.78], [0.64, 0.75], [0.60, 0.70]] },
-    { type: 'curve', points: [[0.41, 0.65], [0.38, 0.68], [0.42, 0.72], [0.50, 0.74], [0.58, 0.72], [0.62, 0.68], [0.59, 0.65]] },
-    { type: 'curve', points: [[0.42, 0.60], [0.39, 0.63], [0.43, 0.67], [0.50, 0.69], [0.57, 0.67], [0.61, 0.63], [0.58, 0.60]] },
-    { type: 'curve', points: [[0.43, 0.55], [0.40, 0.58], [0.44, 0.62], [0.50, 0.64], [0.56, 0.62], [0.60, 0.58], [0.57, 0.55]] },
-    
-    // Metatarso (parte ancha antes de los dedos)
-    { type: 'curve', points: [[0.38, 0.50], [0.35, 0.53], [0.40, 0.56], [0.50, 0.58], [0.60, 0.56], [0.65, 0.53], [0.62, 0.50]] },
-    { type: 'curve', points: [[0.36, 0.45], [0.33, 0.48], [0.38, 0.51], [0.50, 0.53], [0.62, 0.51], [0.67, 0.48], [0.64, 0.45]] },
-    { type: 'curve', points: [[0.35, 0.40], [0.32, 0.43], [0.37, 0.46], [0.50, 0.48], [0.63, 0.46], [0.68, 0.43], [0.65, 0.40]] },
-    
-    // Dedo gordo (pulgar del pie - el más grande, izquierda)
-    { type: 'curve', points: [[0.25, 0.28], [0.22, 0.32], [0.25, 0.36], [0.30, 0.38], [0.35, 0.36], [0.38, 0.32], [0.35, 0.28]] },
-    { type: 'curve', points: [[0.27, 0.24], [0.24, 0.28], [0.27, 0.32], [0.32, 0.34], [0.37, 0.32], [0.40, 0.28], [0.37, 0.24]] },
+         // Puntos que forman el contorno de una huella de pie real
+const huellaSVGPath = [
+    // Dedo gordo (izquierda arriba)
+    [0.20, 0.15], [0.18, 0.18], [0.17, 0.22], [0.18, 0.26], [0.21, 0.29], [0.25, 0.30], [0.29, 0.29], [0.32, 0.26], [0.33, 0.22], [0.32, 0.18], [0.29, 0.15], [0.25, 0.14],
     
     // Segundo dedo
-    { type: 'curve', points: [[0.38, 0.20], [0.36, 0.24], [0.39, 0.27], [0.42, 0.28], [0.45, 0.27], [0.48, 0.24], [0.45, 0.20]] },
-    { type: 'curve', points: [[0.40, 0.16], [0.38, 0.20], [0.41, 0.23], [0.44, 0.24], [0.47, 0.23], [0.50, 0.20], [0.47, 0.16]] },
+    [0.36, 0.08], [0.35, 0.11], [0.35, 0.14], [0.36, 0.17], [0.38, 0.19], [0.41, 0.20], [0.44, 0.19], [0.46, 0.17], [0.47, 0.14], [0.46, 0.11], [0.44, 0.08],
     
     // Tercer dedo
-    { type: 'curve', points: [[0.48, 0.14], [0.46, 0.18], [0.49, 0.21], [0.52, 0.22], [0.55, 0.21], [0.58, 0.18], [0.55, 0.14]] },
-    { type: 'curve', points: [[0.50, 0.10], [0.48, 0.14], [0.51, 0.17], [0.54, 0.18], [0.57, 0.17], [0.60, 0.14], [0.57, 0.10]] },
+    [0.49, 0.05], [0.48, 0.08], [0.48, 0.11], [0.49, 0.14], [0.51, 0.16], [0.54, 0.17], [0.57, 0.16], [0.59, 0.14], [0.60, 0.11], [0.59, 0.08],
     
     // Cuarto dedo
-    { type: 'curve', points: [[0.58, 0.12], [0.56, 0.16], [0.59, 0.19], [0.62, 0.20], [0.65, 0.19], [0.68, 0.16], [0.65, 0.12]] },
-    { type: 'curve', points: [[0.60, 0.08], [0.58, 0.12], [0.61, 0.15], [0.64, 0.16], [0.67, 0.15], [0.70, 0.12], [0.67, 0.08]] },
+    [0.62, 0.06], [0.61, 0.09], [0.61, 0.12], [0.62, 0.15], [0.64, 0.17], [0.67, 0.18], [0.70, 0.17], [0.72, 0.15], [0.73, 0.12], [0.72, 0.09],
     
-    // Quinto dedo (meñique - el más pequeño, derecha)
-    { type: 'curve', points: [[0.68, 0.14], [0.66, 0.17], [0.69, 0.20], [0.72, 0.21], [0.75, 0.20], [0.77, 0.17], [0.75, 0.14]] },
+    // Quinto dedo (meñique - derecha)
+    [0.75, 0.10], [0.74, 0.13], [0.74, 0.16], [0.75, 0.19], [0.77, 0.21], [0.80, 0.22], [0.83, 0.21], [0.85, 0.19], [0.86, 0.16], [0.85, 0.13],
+    
+    // Conexión al metatarso (lado derecho bajando)
+    [0.84, 0.24], [0.82, 0.28], [0.81, 0.32], [0.80, 0.36], [0.80, 0.40], [0.80, 0.44], [0.80, 0.48],
+    
+    // Parte exterior del pie (derecha)
+    [0.79, 0.52], [0.78, 0.56], [0.77, 0.60], [0.76, 0.64], [0.75, 0.68], [0.74, 0.72],
+    
+    // Talón (parte inferior curva - derecha)
+    [0.72, 0.76], [0.70, 0.80], [0.67, 0.84], [0.64, 0.87], [0.60, 0.90], [0.56, 0.92], [0.52, 0.93], [0.48, 0.93], [0.44, 0.92],
+    
+    // Talón (parte inferior curva - izquierda)
+    [0.40, 0.90], [0.36, 0.87], [0.33, 0.84], [0.30, 0.80], [0.28, 0.76],
+    
+    // Parte interior del pie (izquierda subiendo)
+    [0.27, 0.72], [0.26, 0.68], [0.25, 0.64], [0.24, 0.60], [0.24, 0.56], [0.24, 0.52], [0.24, 0.48],
+    
+    // Arco del pie (izquierda - parte cóncava)
+    [0.25, 0.44], [0.26, 0.40], [0.27, 0.36], [0.28, 0.32], [0.29, 0.28], [0.30, 0.25],
+    
+    // Regreso al dedo gordo
+    [0.28, 0.22], [0.26, 0.19], [0.23, 0.17]
 ];
         let huellaPhrases = [];
         let firebaseInitialized = false;
@@ -2024,66 +2026,27 @@
         }
 
         // Función para obtener un punto en una curva de Bezier
-function getPointOnCurve(points, t, containerWidth, containerHeight) {
-    // Convertir puntos relativos a absolutos
-    const absPoints = points.map(p => ({
-        x: p[0] * containerWidth,
-        y: p[1] * containerHeight
-    }));
-
-    // Si solo hay 2 puntos, interpolación lineal
-    if (absPoints.length === 2) {
-        return {
-            x: absPoints[0].x + (absPoints[1].x - absPoints[0].x) * t,
-            y: absPoints[0].y + (absPoints[1].y - absPoints[0].y) * t
-        };
-    }
-
-    // Para más puntos, usar interpolación de Bezier
-    let tempPoints = [...absPoints];
-    while (tempPoints.length > 1) {
-        const newPoints = [];
-        for (let i = 0; i < tempPoints.length - 1; i++) {
-            newPoints.push({
-                x: tempPoints[i].x + (tempPoints[i + 1].x - tempPoints[i].x) * t,
-                y: tempPoints[i].y + (tempPoints[i + 1].y - tempPoints[i].y) * t
-            });
-        }
-        tempPoints = newPoints;
-    }
-
-    return tempPoints[0];
-}
-
-function getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight) {
-    const path = huellaFingerprintPattern[pathIndex % huellaFingerprintPattern.length];
+function getHuellaPositionOnPath(index, totalItems, containerWidth, containerHeight) {
+    // Distribuir uniformemente a lo largo del contorno
+    const pathLength = huellaSVGPath.length;
+    const position = (index / totalItems) * pathLength;
+    const pointIndex = Math.floor(position);
+    const nextIndex = (pointIndex + 1) % pathLength;
+    const t = position - pointIndex;
     
-    if (path.type === 'curve') {
-        const point = getPointOnCurve(path.points, positionOnPath, containerWidth, containerHeight);
-        
-        // Calcular ángulo de la tangente para rotar el texto
-        const t = positionOnPath;
-        const dt = 0.01;
-        const t1 = Math.max(0, t - dt);
-        const t2 = Math.min(1, t + dt);
-        const p1 = getPointOnCurve(path.points, t1, containerWidth, containerHeight);
-        const p2 = getPointOnCurve(path.points, t2, containerWidth, containerHeight);
-        
-        const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
-        
-        return {
-            x: point.x,
-            y: point.y,
-            angle: angle
-        };
-    }
-
-    // Fallback por si acaso
-    return {
-        x: containerWidth * 0.5,
-        y: containerHeight * 0.5,
-        angle: 0
-    };
+    // Interpolación entre dos puntos consecutivos
+    const point1 = huellaSVGPath[pointIndex];
+    const point2 = huellaSVGPath[nextIndex];
+    
+    const x = (point1[0] + (point2[0] - point1[0]) * t) * containerWidth;
+    const y = (point1[1] + (point2[1] - point1[1]) * t) * containerHeight;
+    
+    // Calcular ángulo tangente
+    const dx = point2[0] - point1[0];
+    const dy = point2[1] - point1[1];
+    const angle = Math.atan2(dy, dx);
+    
+    return { x, y, angle };
 }
 
 function renderHuellaFingerprint() {
@@ -2095,12 +2058,12 @@ function renderHuellaFingerprint() {
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
 
-    // Calcular cuántos puntos de relleno necesitamos
-    const totalSlotsNeeded = 100; // Total de espacios en la huella
+    // Total de espacios disponibles en el contorno
+    const totalSlots = 120;
     const realPhrases = huellaPhrases.length;
-    const fillerDots = Math.max(0, totalSlotsNeeded - realPhrases);
+    const fillerDots = Math.max(0, totalSlots - realPhrases);
     
-    // Crear array combinado: frases reales + puntos de relleno
+    // Combinar frases reales y puntos de relleno
     const allItems = [
         ...huellaPhrases.map(phrase => ({ type: 'phrase', content: phrase })),
         ...Array(fillerDots).fill({ type: 'dot' })
@@ -2111,36 +2074,32 @@ function renderHuellaFingerprint() {
         return;
     }
 
-    // Distribuir items uniformemente
-    const phrasesPerCurve = Math.max(3, Math.ceil(allItems.length / huellaFingerprintPattern.length));
-    
     allItems.forEach((item, index) => {
-        const pathIndex = Math.floor(index / phrasesPerCurve);
-        const positionOnPath = (index % phrasesPerCurve) / phrasesPerCurve;
-        
-        const position = getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight);
+        const position = getHuellaPositionOnPath(index, allItems.length, containerWidth, containerHeight);
         
         if (item.type === 'phrase') {
-            // Crear elemento de frase real
             const phraseElement = document.createElement('div');
             phraseElement.className = 'huella-phrase';
             phraseElement.textContent = item.content;
             phraseElement.style.left = `${position.x}px`;
             phraseElement.style.top = `${position.y}px`;
-            phraseElement.style.transform = `translate(-50%, -50%) rotate(${position.angle}rad)`;
-            phraseElement.style.animationDelay = `${index * 0.02}s`;
             
-            const fontSize = 11 + (index % 4);
+            // Rotar el texto para que siga el contorno
+            phraseElement.style.transform = `translate(-50%, -50%) rotate(${position.angle}rad)`;
+            phraseElement.style.animationDelay = `${index * 0.015}s`;
+            
+            // Variar tamaño de fuente
+            const fontSize = 10 + (index % 5);
             phraseElement.style.fontSize = `${fontSize}px`;
             
             container.appendChild(phraseElement);
         } else {
-            // Crear punto de relleno
             const dotElement = document.createElement('div');
             dotElement.className = 'huella-dot';
             dotElement.style.left = `${position.x}px`;
             dotElement.style.top = `${position.y}px`;
-            dotElement.style.animationDelay = `${index * 0.02}s`;
+            dotElement.style.transform = 'translate(-50%, -50%)';
+            dotElement.style.animationDelay = `${index * 0.015}s`;
             
             container.appendChild(dotElement);
         }
@@ -2324,7 +2283,7 @@ function renderHuellaFingerprint() {
             .huella-phrase {
                 position: absolute;
                 font-family: 'Source Sans Pro', sans-serif;
-                font-size: 14px;
+                font-size: 12px;
                 color: var(--gris-texto);
                 opacity: 0;
                 animation: huellaFadeIn 0.8s ease-out forwards;
@@ -2332,6 +2291,10 @@ function renderHuellaFingerprint() {
                 white-space: nowrap;
                 cursor: default;
                 transition: all 0.3s ease;
+                max-width: 150px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-weight: 600;
             }
 
             .huella-phrase:hover {
