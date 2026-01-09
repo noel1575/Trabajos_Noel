@@ -2013,48 +2013,68 @@
             }
         }
 
-        function getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight) {
-            const path = huellaFingerprintPattern[pathIndex % huellaFingerprintPattern.length];
-            const centerX = containerWidth * path.cx;
-            const centerY = containerHeight * path.cy;
+        // Función para obtener un punto en una curva de Bezier
+function getPointOnCurve(points, t, containerWidth, containerHeight) {
+    // Convertir puntos relativos a absolutos
+    const absPoints = points.map(p => ({
+        x: p[0] * containerWidth,
+        y: p[1] * containerHeight
+    }));
 
-            if (path.type === 'ellipse') {
-                const radiusX = containerWidth * path.rx;
-                const radiusY = containerHeight * path.ry;
-                const angle = positionOnPath * Math.PI * 2;
-                const rotation = (path.rotation || 0) * Math.PI / 180;
-                
-                const x = radiusX * Math.cos(angle);
-                const y = radiusY * Math.sin(angle);
-                
-                const rotatedX = x * Math.cos(rotation) - y * Math.sin(rotation);
-                const rotatedY = x * Math.sin(rotation) + y * Math.cos(rotation);
-                
-                return {
-                    x: centerX + rotatedX,
-                    y: centerY + rotatedY,
-                    angle: angle + rotation
-                };
-            } else if (path.type === 'arc') {
-                const radius = containerWidth * path.radius;
-                const startAngle = path.startAngle * Math.PI / 180;
-                const endAngle = path.endAngle * Math.PI / 180;
-                const side = path.side || 'left';
-                
-                let angle;
-                if (side === 'left') {
-                    angle = startAngle + (endAngle - startAngle) * positionOnPath;
-                } else {
-                    angle = startAngle - (endAngle - startAngle) * positionOnPath;
-                }
-                
-                return {
-                    x: centerX + radius * Math.cos(angle),
-                    y: centerY + radius * Math.sin(angle),
-                    angle: angle
-                };
-            }
+    // Si solo hay 2 puntos, interpolación lineal
+    if (absPoints.length === 2) {
+        return {
+            x: absPoints[0].x + (absPoints[1].x - absPoints[0].x) * t,
+            y: absPoints[0].y + (absPoints[1].y - absPoints[0].y) * t
+        };
+    }
+
+    // Para más puntos, usar interpolación de Bezier
+    let tempPoints = [...absPoints];
+    while (tempPoints.length > 1) {
+        const newPoints = [];
+        for (let i = 0; i < tempPoints.length - 1; i++) {
+            newPoints.push({
+                x: tempPoints[i].x + (tempPoints[i + 1].x - tempPoints[i].x) * t,
+                y: tempPoints[i].y + (tempPoints[i + 1].y - tempPoints[i].y) * t
+            });
         }
+        tempPoints = newPoints;
+    }
+
+    return tempPoints[0];
+}
+
+function getHuellaPositionOnPath(pathIndex, positionOnPath, containerWidth, containerHeight) {
+    const path = huellaFingerprintPattern[pathIndex % huellaFingerprintPattern.length];
+    
+    if (path.type === 'curve') {
+        const point = getPointOnCurve(path.points, positionOnPath, containerWidth, containerHeight);
+        
+        // Calcular ángulo de la tangente para rotar el texto
+        const t = positionOnPath;
+        const dt = 0.01;
+        const t1 = Math.max(0, t - dt);
+        const t2 = Math.min(1, t + dt);
+        const p1 = getPointOnCurve(path.points, t1, containerWidth, containerHeight);
+        const p2 = getPointOnCurve(path.points, t2, containerWidth, containerHeight);
+        
+        const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+        
+        return {
+            x: point.x,
+            y: point.y,
+            angle: angle
+        };
+    }
+
+    // Fallback por si acaso
+    return {
+        x: containerWidth * 0.5,
+        y: containerHeight * 0.5,
+        angle: 0
+    };
+}
 
         function renderHuellaFingerprint() {
             const container = document.getElementById('huella-fingerprint');
@@ -2085,7 +2105,7 @@
                 phraseElement.textContent = phrase;
                 phraseElement.style.left = `${position.x}px`;
                 phraseElement.style.top = `${position.y}px`;
-                phraseElement.style.transform = `translate(-50%, -50%) rotate(${position.angle + Math.PI / 2}rad)`;
+                phraseElement.style.transform = `translate(-50%, -50%) rotate(${position.angle}rad)`;
                 phraseElement.style.animationDelay = `${index * 0.05}s`;
                 
                 const fontSize = 12 + (index % 5);
